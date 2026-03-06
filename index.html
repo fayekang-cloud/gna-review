@@ -131,13 +131,13 @@ const gradeGuide = [
 const selfSections = [
   {id:"info",title:"기본 정보",fields:[
     {key:"name",label:"이름",type:"text",req:true},
-    {key:"team",label:"소속(팀명)",type:"text",req:true},
+    {key:"team",label:"소속(팀명/스쿼드)",type:"text",req:true},
     {key:"joinDate",label:"입사일",type:"date",req:true},
     {key:"writeDate",label:"작성일",type:"date",req:true},
   ]},
   {id:"s1",title:"Section 1. 성과 리뷰",sub:"지난 1년간의 성과를 정성·정량 양면으로 돌아봅니다.",fields:[
     {key:"s1q1",label:"지난 1년간 내가 직접 기여했다고 확신할 수 있는 주요 성과와, 그 결과가 팀이나 서비스에 준 영향을 구체적으로 적어주세요.\n가능하다면 핵심 지표(숫자)도 함께 기재해주세요. (예: MAU 증가율, ROAS, 처리 건수, 매출 기여액 등)",type:"textarea",req:true},
-    {key:"s1q2",label:"업무 목표를 달성하지 못한 일이 있다면, 그 원인은 무엇이었고\n돌아봤을 때 어떤 인사이트 혹은 개선점을 발견하셨나요?",type:"textarea",req:false},
+    {key:"s1q2",label:"업무 목표를 달성하지 못한 일이 있다면, 그 원인은 무엇이었고\n돌아봤을 때 어떤 인사이트 혹은 개선점을 발견하셨나요?",type:"textarea",req:true},
   ]},
   {id:"s2",title:"Section 2. 협업 & 소통",sub:"회사 목표를 위한 추가 기여와 소통 방식을 돌아봅니다.",fields:[
     {key:"s2q1",label:"회사 목표를 위해 본인의 팀 업무 외에 타팀과 협업하거나 추가로 진행한 업무가 있나요?\n해당 경험과 그 과정에서 회사 매출/퍼포먼스 향상/리소스 감축 등 가져온 변화를 적어주세요.",type:"textarea",req:true},
@@ -154,13 +154,13 @@ const selfSections = [
 const leaderSections = [
   {id:"info",title:"기본 정보",fields:[
     {key:"targetName",label:"평가 대상자 이름",type:"text",req:true},
-    {key:"targetTeam",label:"대상자 소속(팀명)",type:"text",req:true},
+    {key:"targetTeam",label:"대상자 소속(팀명/스쿼드)",type:"text",req:true},
     {key:"reviewerName",label:"리드/동료 이름",type:"text",req:true},
-    {key:"reviewerTeam",label:"리드/동료 소속(팀명)",type:"text",req:true},
+    {key:"reviewerTeam",label:"리드/동료 소속(팀명/스쿼드)",type:"text",req:true},
   ]},
   {id:"s1",title:"Section 1. 성과 평가",sub:"대상자의 주요 성과와 미흡했던 부분을 평가합니다.",fields:[
     {key:"s1q1",label:"이 구성원이 지난 1년간 주도하거나 핵심적으로 기여한 주요 성과와 그 영향을 적어주세요.\n인상적이었던 판단이나 선택이 있었다면 함께 기재해주세요.\n가능하다면 핵심 지표(숫자)도 함께 적어주세요. (예: KPI 달성률, 프로젝트 완료율, 매출 기여도 등)",type:"textarea",req:true},
-    {key:"s1q2",label:"이 구성원이 업무 목표를 달성하지 못한 일이 있었다면, 그 원인은 무엇이었고\n해당 경험에서 어떤 인사이트 혹은 개선점이 있었다고 보시나요?",type:"textarea",req:false},
+    {key:"s1q2",label:"이 구성원이 업무 목표를 달성하지 못한 일이 있었다면, 그 원인은 무엇이었고\n해당 경험에서 어떤 인사이트 혹은 개선점이 있었다고 보시나요?",type:"textarea",req:true},
   ]},
   {id:"s2",title:"Section 2. 협업 & 신뢰",sub:"회사 목표를 위한 추가 기여와 신뢰 구축 정도를 평가합니다.",fields:[
     {key:"s2q1",label:"이 구성원은 회사 목표를 위해 소속 팀 업무 외에 타팀과 협업하거나 추가 업무를 진행한 경험이 있나요?\n해당 경험과 그 과정에서 회사 매출/퍼포먼스 향상/리소스 감축 등 가져온 변화를 적어주세요.\n또한 동료 간 신뢰를 쌓는 행동(투명한 정보 공유, 약속 이행, 피드백 수용 등)을 일관되게 보여주었나요?",type:"textarea",req:true},
@@ -184,7 +184,15 @@ function setState(patch) {
 
 function setData(key, val) {
   state.data[key] = val;
-  render();
+  // Don't re-render on every keystroke - just update state
+}
+
+// Debounced render for validation updates
+let renderTimer = null;
+function setDataAndRender(key, val) {
+  state.data[key] = val;
+  clearTimeout(renderTimer);
+  renderTimer = setTimeout(() => render(), 300);
 }
 
 // ── Render helpers ──
@@ -242,14 +250,22 @@ function renderField(f) {
   if (f.hint) div.appendChild(h('div', {className:'hint'}, f.hint));
 
   if (f.type === 'textarea') {
-    const ta = h('textarea', {rows:'5', value: state.data[f.key] || ''});
+    const ta = h('textarea', {rows:'5'});
     ta.value = state.data[f.key] || '';
-    ta.addEventListener('input', e => setData(f.key, e.target.value));
+    ta.addEventListener('input', e => {
+      state.data[f.key] = e.target.value;
+      updateNavButtons();
+    });
+    ta.setAttribute('data-key', f.key);
     div.appendChild(ta);
   } else {
     const inp = h('input', {type: f.type});
     inp.value = state.data[f.key] || '';
-    inp.addEventListener('input', e => setData(f.key, e.target.value));
+    inp.addEventListener('input', e => {
+      state.data[f.key] = e.target.value;
+      updateNavButtons();
+    });
+    inp.setAttribute('data-key', f.key);
     div.appendChild(inp);
   }
   return div;
@@ -283,7 +299,7 @@ function renderCoreValueCard(cv, mode) {
     const btn = h('button', {
       className: 'scale-btn' + (isActive ? ' active' : ''),
       style: isActive ? {background:cv.color, borderColor:cv.color, color:'#fff'} : {},
-      onClick: () => setData(scoreKey, s.n)
+      onClick: () => { state.data[scoreKey] = s.n; render(); }
     });
     btn.appendChild(h('span', null, String(s.n)));
     btn.appendChild(h('span', {className:'sl'}, s.label));
@@ -300,7 +316,11 @@ function renderCoreValueCard(cv, mode) {
 
   const ta = h('textarea', {rows:'3', style:{border:`1.5px solid #e2e8f0`, borderRadius:'10px', fontSize:'13px', lineHeight:'1.6', fontFamily:'inherit', background:'#fff', padding:'10px 14px', width:'100%', outline:'none', boxSizing:'border-box', resize:'vertical'}});
   ta.value = state.data[textKey] || '';
-  ta.addEventListener('input', e => setData(textKey, e.target.value));
+  ta.addEventListener('input', e => {
+    state.data[textKey] = e.target.value;
+    updateNavButtons();
+  });
+  ta.setAttribute('data-key', textKey);
   ta.addEventListener('focus', () => ta.style.borderColor = cv.color);
   ta.addEventListener('blur', () => ta.style.borderColor = '#e2e8f0');
   card.appendChild(ta);
@@ -345,6 +365,11 @@ async function handleSubmit() {
   await submitToSheet(payload);
   
   setState({saving: false, submitted: true});
+}
+
+function updateNavButtons() {
+  const nextBtn = document.querySelector('.btn-next');
+  if (nextBtn) nextBtn.disabled = !canProceed();
 }
 
 // ── Main render ──

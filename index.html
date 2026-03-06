@@ -12,9 +12,9 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;backgr
 .gate h1{font-size:28px;font-weight:800;color:#f8fafc;margin:0 0 8px}
 .gate .sub{color:#64748b;font-size:14px;margin:0 0 32px;line-height:1.6}
 .gate .tag{font-size:13px;letter-spacing:3px;color:#94a3b8;margin-bottom:12px;font-weight:600}
-.gate-input{width:240px;padding:14px 18px;border:1.5px solid #334155;border-radius:12px;background:#0f172a;color:#f8fafc;font-size:18px;font-family:inherit;text-align:center;letter-spacing:6px;outline:none;transition:border .2s}
+.gate-input{width:320px;max-width:100%;padding:14px 18px;border:1.5px solid #334155;border-radius:12px;background:#0f172a;color:#f8fafc;font-size:15px;font-family:inherit;text-align:center;outline:none;transition:border .2s}
 .gate-input:focus{border-color:#2563eb}
-.gate-input::placeholder{letter-spacing:2px;color:#475569}
+.gate-input::placeholder{color:#475569}
 .gate-error{color:#ef4444;font-size:13px;margin-top:8px;min-height:20px}
 .gate-btn{padding:12px 32px;border-radius:12px;background:#2563eb;color:#fff;font-size:14px;font-weight:600;border:none;cursor:pointer;font-family:inherit;margin-top:16px;transition:background .2s}
 .gate-btn:hover{background:#1d4ed8}
@@ -22,6 +22,7 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;backgr
 .landing h1{font-size:32px;font-weight:800;color:#f8fafc;margin:0 0 8px}
 .landing .sub{color:#64748b;font-size:14px;margin:0 0 40px;line-height:1.6}
 .landing .tag{font-size:13px;letter-spacing:3px;color:#94a3b8;margin-bottom:12px;font-weight:600}
+.landing .welcome{color:#60a5fa;font-size:14px;margin-bottom:32px;font-weight:500}
 .mode-btn{width:100%;padding:18px 24px;border-radius:14px;border:1.5px solid #334155;background:linear-gradient(135deg,#1e293b,#334155);color:#f8fafc;font-size:16px;font-weight:700;cursor:pointer;text-align:left;display:flex;align-items:center;justify-content:space-between;transition:border-color .2s;margin-bottom:12px;font-family:inherit}
 .mode-btn:hover{border-color:#2563eb}
 .mode-btn .desc{font-size:12px;font-weight:400;color:#94a3b8;margin-top:4px}
@@ -92,7 +93,7 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;backgr
 .done h2{color:#f8fafc;font-size:24px;font-weight:800;margin:0 0 8px}
 .done p{color:#94a3b8;font-size:14px;margin:0 0 32px;line-height:1.6}
 .done button{padding:14px 32px;border-radius:12px;background:#2563eb;color:#fff;font-size:14px;font-weight:600;border:none;cursor:pointer;font-family:inherit}
-@media(max-width:480px){.landing h1,.gate h1{font-size:26px}.grade-grid{grid-template-columns:1fr}.scale-row{gap:5px}.scale-btn{width:44px;font-size:12px}}
+@media(max-width:480px){.landing h1,.gate h1{font-size:26px}.grade-grid{grid-template-columns:1fr}.scale-row{gap:5px}.scale-btn{width:44px;font-size:12px}.gate-input{width:100%}}
 </style>
 </head>
 <body>
@@ -100,7 +101,25 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;backgr
 <script>
 // ═══ 설정 ═══
 const SHEET_WEBHOOK_URL = "";
-const ACCESS_CODE = "gna2026";
+const ALLOWED_EMAILS = [
+"wb@gna.company","kai.kim@gna.company","jay.heo@gna.company","eddakim@gna.company",
+"lina.diaz@gna.company","min@gna.company","lou@gna.company","julie@gna.company",
+"eve@gna.company","chloe@gna.company","kane@gna.company","tommy.kim@gna.company",
+"ellie@gna.company","ina@gna.company","veronica.park@gna.company","jimmy@gna.company",
+"eddie.kim@gna.company","senna.jeong@gna.company","hyman.park@gna.company","yosef@gna.company",
+"angie.han@gna.company","flicia@gna.company","selene.park@gna.company","mary.choi@gna.company",
+"seny@gna.company","angelique.li@gna.company","kesper.ng@gna.company","sonya.hong@gna.company",
+"liang.wang@gna.company","mac.han@gna.company","ted.yang@gna.company","hailey.jeong@gna.company",
+"randi.ko@gna.company","becky.bae@gna.company","luka.kim@gna.company","rocket.oh@gna.company",
+"ruqe.seo@gna.company","erica.kim@gna.company","liora@gna.company","luvon.lee@gna.company",
+"victor.kim@gna.company","eren.jang@gna.company","josh.sho@gna.company","marisol.kim@gna.company",
+"simon.lee@gna.company","boyle.seo@gna.company","hayden@gna.company","joy@gna.company",
+"may@gna.company","sophia@gna.company","nate.yoo@gna.company","moon@gna.company",
+"teo.park@gna.company","noah.lee@gna.company","yuna.pan@gna.company","lexi.sa@gna.company",
+"vana.i@gna.company","rosea.li@gna.company","rhea.syn@gna.company","faye.kang@gna.company",
+"mima.kang@gna.company","lucy.kim@gna.company","claire.tran@gna.company","maverick.seo@gna.company",
+"lumi.ko@gna.company","sammy.lee@gna.company"
+];
 
 // ═══ Data ═══
 const CV=[
@@ -140,10 +159,9 @@ const leaderS=[
   {id:"rv",t:"제출 전 확인",tp:"review"},
 ];
 
-let D={},step=0,mode=null,auth=false,submitted=false,saving=false;
+let D={},step=0,mode=null,authEmail='',submitted=false,saving=false;
 function secs(){return mode==='self'?selfS:leaderS}
 function c(){return secs()[step]}
-
 function h(t,a,...ch){const e=document.createElement(t);if(a)Object.entries(a).forEach(([k,v])=>{if(k==='style'&&typeof v==='object')Object.assign(e.style,v);else if(k.startsWith('on'))e.addEventListener(k.slice(2).toLowerCase(),v);else if(k==='className')e.className=v;else e.setAttribute(k,v)});ch.flat(Infinity).forEach(x=>{if(x!=null)e.appendChild(typeof x==='string'?document.createTextNode(x):x)});return e}
 
 function ok(){
@@ -158,7 +176,7 @@ function updNav(){const b=document.querySelector('.btn-next');if(b)b.disabled=!o
 
 async function submit(){
   saving=true;R();
-  const ts=new Date().toISOString(),p={...D,_type:mode,_timestamp:ts};
+  const ts=new Date().toISOString(),p={...D,_type:mode,_email:authEmail,_timestamp:ts};
   try{localStorage.setItem('gna_'+mode+'_'+ts,JSON.stringify(p))}catch(e){}
   if(SHEET_WEBHOOK_URL)try{await fetch(SHEET_WEBHOOK_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})}catch(e){}
   saving=false;submitted=true;R();
@@ -218,28 +236,41 @@ function rReview(){
 function R(){
   const app=document.getElementById('app');app.innerHTML='';
 
-  if(!auth){
-    const g=h('div',{className:'gate'}),inner=h('div',{style:{maxWidth:'400px',width:'100%'}});
-    inner.appendChild(h('div',{className:'tag'},'GNA COMPANY'));inner.appendChild(h('h1',null,'연봉 재계약 리뷰'));inner.appendChild(h('p',{className:'sub'},'접근 코드를 입력해주세요'));
-    const inp=h('input',{className:'gate-input',type:'text',placeholder:'코드 입력',maxlength:'20'});
+  // Gate - Email auth
+  if(!authEmail){
+    const g=h('div',{className:'gate'}),inner=h('div',{style:{maxWidth:'420px',width:'100%'}});
+    inner.appendChild(h('div',{className:'tag'},'GNA COMPANY'));
+    inner.appendChild(h('h1',null,'연봉 재계약 리뷰'));
+    inner.appendChild(h('p',{className:'sub'},'사내 이메일을 입력해주세요'));
+    const inp=h('input',{className:'gate-input',type:'email',placeholder:'name@gna.company'});
+    inp.addEventListener('keydown',e=>{if(e.key==='Enter')tryAuth()});
     const err=h('div',{className:'gate-error'});
-    inp.addEventListener('keydown',e=>{if(e.key==='Enter')tryA()});
     inner.appendChild(inp);inner.appendChild(err);
-    inner.appendChild(h('button',{className:'gate-btn',onClick:tryA},'입장하기'));
+    inner.appendChild(h('button',{className:'gate-btn',onClick:tryAuth},'확인'));
     g.appendChild(inner);app.appendChild(g);
-    function tryA(){if(inp.value.trim()===ACCESS_CODE){auth=true;R()}else{err.textContent='코드가 올바르지 않습니다'}}
+    setTimeout(()=>inp.focus(),100);
+    function tryAuth(){
+      const val=inp.value.trim().toLowerCase();
+      if(!val){err.textContent='이메일을 입력해주세요';return}
+      if(ALLOWED_EMAILS.includes(val)){authEmail=val;R()}
+      else{err.textContent='등록되지 않은 이메일입니다. 사내 이메일을 확인해주세요.'}
+    }
     return;
   }
 
+  // Landing
   if(!mode){
     const ld=h('div',{className:'landing'}),inner=h('div',{style:{maxWidth:'480px',width:'100%'}});
-    inner.appendChild(h('div',{className:'tag'},'GNA COMPANY'));inner.appendChild(h('h1',null,'연봉 재계약 리뷰'));
+    inner.appendChild(h('div',{className:'tag'},'GNA COMPANY'));
+    inner.appendChild(h('h1',null,'연봉 재계약 리뷰'));
     inner.appendChild(h('p',{className:'sub'},'한 해를 돌아보며, 서로의 성장을 확인하는 시간입니다'));
+    inner.appendChild(h('div',{className:'welcome'},'👋 '+authEmail));
     const b1=h('button',{className:'mode-btn',onClick:()=>{mode='self';step=0;D={};submitted=false;R()}}),i1=h('div');i1.appendChild(h('div',null,'셀프리뷰 작성'));i1.appendChild(h('div',{className:'desc'},'대상자 본인이 직접 작성합니다'));b1.appendChild(i1);b1.appendChild(h('span',{className:'arrow'},'→'));inner.appendChild(b1);
     const b2=h('button',{className:'mode-btn',onClick:()=>{mode='leader';step=0;D={};submitted=false;R()}}),i2=h('div');i2.appendChild(h('div',null,'리드/동료 평가 작성'));i2.appendChild(h('div',{className:'desc'},'리드 또는 동료가 대상자를 평가합니다'));b2.appendChild(i2);b2.appendChild(h('span',{className:'arrow'},'→'));inner.appendChild(b2);
     ld.appendChild(inner);app.appendChild(ld);return;
   }
 
+  // Submitted
   if(submitted){
     const dn=h('div',{className:'done'}),inner=h('div',{style:{maxWidth:'420px'}});
     inner.appendChild(h('div',{className:'icon'},'✅'));inner.appendChild(h('h2',null,'제출 완료'));
@@ -248,22 +279,22 @@ function R(){
     dn.appendChild(inner);app.appendChild(dn);return;
   }
 
+  // Form
   const ss=secs(),cu=c(),isLast=step===ss.length-1,prog=((step+1)/ss.length)*100;
-  // Header
   const hdr=h('div',{className:'header'}),hi=h('div',{className:'header-inner'}),tp=h('div',{className:'top'}),ld=h('div');
   ld.appendChild(h('div',{className:'brand'},'GNA COMPANY'));ld.appendChild(h('h2',null,mode==='self'?'셀프리뷰':'리드/동료 평가'));
   tp.appendChild(ld);tp.appendChild(h('button',{className:'exit-btn',onClick:()=>{if(confirm('작성 중인 내용이 사라집니다. 나가시겠습니까?')){mode=null;R()}}},'나가기'));
   hi.appendChild(tp);const pb=h('div',{className:'progress-bar'});pb.appendChild(h('div',{className:'progress-fill',style:{width:prog+'%'}}));hi.appendChild(pb);hdr.appendChild(hi);app.appendChild(hdr);
-  // Content
-  const ct=h('div',{className:'content'}),cd=h('div',{className:'card'}),ch=h('div',{className:'card-header'}),td=h('div');
-  td.appendChild(h('h3',null,cu.t));if(cu.sub)td.appendChild(h('div',{className:'card-sub'},cu.sub));ch.appendChild(td);ch.appendChild(h('span',{className:'step'},(step+1)+' / '+ss.length));cd.appendChild(ch);
+
+  const ct=h('div',{className:'content'}),cd=h('div',{className:'card'}),ch2=h('div',{className:'card-header'}),td=h('div');
+  td.appendChild(h('h3',null,cu.t));if(cu.sub)td.appendChild(h('div',{className:'card-sub'},cu.sub));ch2.appendChild(td);ch2.appendChild(h('span',{className:'step'},(step+1)+' / '+ss.length));cd.appendChild(ch2);
   const bd=h('div',{className:'card-body'});
   if(cu.tp==='cv'){bd.appendChild(rScaleGuide());CV.forEach(v=>bd.appendChild(rCV(v,cu.mode)))}
   else if(cu.tp==='final'){bd.appendChild(rGrade());cu.f.forEach(f=>bd.appendChild(rField(f)))}
   else if(cu.tp==='review'){bd.appendChild(h('p',{style:{fontSize:'14px',color:'#64748b',marginBottom:'16px',lineHeight:'1.6'}},'제출 전에 작성 내용을 확인해주세요. 수정이 필요하면 각 섹션의 "수정하기"를 클릭하세요.'));bd.appendChild(rReview())}
   else if(cu.f){cu.f.forEach(f=>bd.appendChild(rField(f)))}
   cd.appendChild(bd);ct.appendChild(cd);app.appendChild(ct);
-  // Nav
+
   const nv=h('div',{className:'bottom-nav'}),ni=h('div',{className:'bottom-inner'});
   const pv=h('button',{className:'btn-prev',onClick:()=>go(Math.max(0,step-1))},'← 이전');if(step===0)pv.disabled=true;ni.appendChild(pv);
   ni.appendChild(h('span',{className:'step-indicator'},(step+1)+' / '+ss.length));

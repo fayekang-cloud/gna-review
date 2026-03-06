@@ -10,13 +10,16 @@
 body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;background:#f1f5f9;color:#1e293b;min-height:100vh}
 .gate{min-height:100vh;background:linear-gradient(160deg,#0f172a 0%,#1e293b 50%,#0f172a 100%);display:flex;align-items:center;justify-content:center;text-align:center;padding:24px}
 .gate h1{font-size:28px;font-weight:800;color:#f8fafc;margin:0 0 8px}
-.gate .sub{color:#64748b;font-size:14px;margin:0 0 32px;line-height:1.6}
+.gate .sub{color:#64748b;font-size:14px;margin:0 0 28px;line-height:1.6}
 .gate .tag{font-size:13px;letter-spacing:3px;color:#94a3b8;margin-bottom:12px;font-weight:600}
-.gate-input{width:320px;max-width:100%;padding:14px 18px;border:1.5px solid #334155;border-radius:12px;background:#0f172a;color:#f8fafc;font-size:15px;font-family:inherit;text-align:center;outline:none;transition:border .2s}
+.gate-field{margin-bottom:16px;text-align:left;max-width:320px;width:100%;margin-left:auto;margin-right:auto}
+.gate-label{font-size:12px;color:#94a3b8;margin-bottom:6px;font-weight:500}
+.gate-input{width:100%;padding:14px 18px;border:1.5px solid #334155;border-radius:12px;background:#0f172a;color:#f8fafc;font-size:15px;font-family:inherit;outline:none;transition:border .2s}
 .gate-input:focus{border-color:#2563eb}
 .gate-input::placeholder{color:#475569}
-.gate-error{color:#ef4444;font-size:13px;margin-top:8px;min-height:20px}
-.gate-btn{padding:12px 32px;border-radius:12px;background:#2563eb;color:#fff;font-size:14px;font-weight:600;border:none;cursor:pointer;font-family:inherit;margin-top:16px;transition:background .2s}
+.gate-code{letter-spacing:4px;text-align:center;font-size:18px;text-transform:uppercase}
+.gate-error{color:#ef4444;font-size:13px;margin-top:8px;min-height:20px;text-align:center}
+.gate-btn{padding:12px 32px;border-radius:12px;background:#2563eb;color:#fff;font-size:14px;font-weight:600;border:none;cursor:pointer;font-family:inherit;margin-top:8px;transition:background .2s;width:100%;max-width:320px}
 .gate-btn:hover{background:#1d4ed8}
 .landing{min-height:100vh;background:linear-gradient(160deg,#0f172a 0%,#1e293b 50%,#0f172a 100%);display:flex;align-items:center;justify-content:center;text-align:center;padding:24px}
 .landing h1{font-size:32px;font-weight:800;color:#f8fafc;margin:0 0 8px}
@@ -27,12 +30,18 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;backgr
 .mode-btn:hover{border-color:#2563eb}
 .mode-btn .desc{font-size:12px;font-weight:400;color:#94a3b8;margin-top:4px}
 .mode-btn .arrow{font-size:22px}
+.draft-badge{display:inline-block;padding:2px 8px;border-radius:6px;background:#fef3c7;color:#92400e;font-size:11px;font-weight:600;margin-left:8px}
 .header{background:#0f172a;padding:20px 24px 16px;position:sticky;top:0;z-index:10}
 .header-inner{max-width:640px;margin:0 auto}
 .header .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .header .brand{font-size:11px;letter-spacing:2px;color:#64748b}
 .header h2{margin:2px 0 0;font-size:17px;font-weight:700;color:#f8fafc}
-.exit-btn{background:none;border:1px solid #334155;border-radius:8px;padding:6px 14px;color:#94a3b8;font-size:12px;cursor:pointer;font-family:inherit}
+.header-btns{display:flex;gap:8px}
+.exit-btn,.save-btn{background:none;border:1px solid #334155;border-radius:8px;padding:6px 14px;color:#94a3b8;font-size:12px;cursor:pointer;font-family:inherit;transition:all .2s}
+.save-btn{border-color:#059669;color:#34d399}
+.save-btn:hover{background:#059669;color:#fff}
+.saved-toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:#059669;color:#fff;padding:10px 24px;border-radius:10px;font-size:13px;font-weight:600;z-index:100;animation:fadeout 2s forwards}
+@keyframes fadeout{0%,70%{opacity:1}100%{opacity:0}}
 .progress-bar{height:3px;background:#1e293b;border-radius:2px;overflow:hidden}
 .progress-fill{height:100%;background:linear-gradient(90deg,#2563eb,#60a5fa);border-radius:2px;transition:width .4s ease}
 .content{max-width:640px;margin:0 auto;padding:24px 20px 120px}
@@ -45,7 +54,6 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;backgr
 .field{margin-bottom:20px}
 .field label{display:block;font-size:14px;font-weight:600;color:#1e293b;margin-bottom:6px;line-height:1.5;white-space:pre-line}
 .field .req{color:#ef4444}
-.field .hint{font-size:12px;color:#94a3b8;margin-bottom:8px;line-height:1.5}
 .field input,.field textarea{width:100%;padding:10px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;font-family:inherit;background:#fafbfc;transition:border .2s;outline:none}
 .field textarea{resize:vertical;line-height:1.7;min-height:120px}
 .field input:focus,.field textarea:focus{border-color:#2563eb}
@@ -53,9 +61,7 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;backgr
 .guide-box .title{font-size:13px;font-weight:700;color:#475569;margin-bottom:10px}
 .guide-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .guide-num{width:26px;height:26px;border-radius:8px;background:#2563eb;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
-.guide-text{font-size:12px;color:#334155}
-.guide-text strong{color:#1e293b}
-.guide-text span{color:#64748b}
+.guide-text{font-size:12px;color:#334155}.guide-text strong{color:#1e293b}.guide-text span{color:#64748b}
 .grade-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
 .grade-item{padding:10px 14px;border-radius:10px;background:#fff;border:2px solid #e5e7eb;cursor:pointer;transition:all .15s}
 .grade-item:hover{border-color:#93c5fd}
@@ -65,15 +71,13 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;backgr
 .grade-item .gd{font-size:11px;color:#94a3b8;margin-top:3px;line-height:1.4}
 .cv-card{padding:20px;border-radius:14px;margin-bottom:16px}
 .cv-title{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.cv-title .kr{font-size:20px;font-weight:800}
-.cv-title .en{font-size:13px;opacity:.7;font-weight:500}
+.cv-title .kr{font-size:20px;font-weight:800}.cv-title .en{font-size:13px;opacity:.7;font-weight:500}
 .cv-behaviors{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
 .cv-behaviors span{padding:3px 10px;border-radius:6px;background:#fff;border:1px solid #e2e8f0;font-size:11px;color:#64748b}
 .cv-q{font-size:13px;font-weight:600;color:#1e293b;margin-bottom:6px}
 .scale-row{display:flex;gap:8px;margin:8px 0 16px}
 .scale-btn{width:52px;padding:8px 0;border-radius:10px;border:2px solid #e2e8f0;background:#fff;color:#64748b;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;align-items:center;gap:3px;font-family:inherit}
-.scale-btn.active{color:#fff}
-.scale-btn .sl{font-size:9px;font-weight:500;opacity:.9}
+.scale-btn.active{color:#fff}.scale-btn .sl{font-size:9px;font-weight:500;opacity:.9}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e5e7eb;padding:12px 20px;z-index:10}
 .bottom-inner{max-width:640px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
 .btn-prev{padding:10px 20px;border-radius:10px;border:1.5px solid #e2e8f0;background:#fff;color:#475569;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
@@ -83,8 +87,7 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;backgr
 .step-indicator{font-size:12px;color:#94a3b8}
 .review-section{margin-bottom:16px;padding:16px 20px;border-radius:12px;background:#fff;border:1px solid #e5e7eb}
 .review-section h4{font-size:14px;font-weight:700;color:#2563eb;margin:0}
-.review-item{margin-bottom:10px}
-.review-label{font-size:12px;color:#94a3b8;margin-bottom:2px}
+.review-item{margin-bottom:10px}.review-label{font-size:12px;color:#94a3b8;margin-bottom:2px}
 .review-value{font-size:13px;color:#1e293b;line-height:1.6;white-space:pre-line}
 .review-empty{font-size:13px;color:#cbd5e1;font-style:italic}
 .review-edit{font-size:12px;color:#2563eb;cursor:pointer;background:none;border:none;font-family:inherit;text-decoration:underline}
@@ -101,25 +104,32 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;backgr
 <script>
 // ═══ 설정 ═══
 const SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyY0f3UaavynVU_xmi1OskNN_55wM2m_5i-drU5ABBqb5O7RXGDae8aI80GLYyLNEhB/exec";
-const ALLOWED_EMAILS = [
-"wb@gna.company","kai.kim@gna.company","jay.heo@gna.company","eddakim@gna.company",
-"lina.diaz@gna.company","min@gna.company","lou@gna.company","julie@gna.company",
-"eve@gna.company","chloe@gna.company","kane@gna.company","tommy.kim@gna.company",
-"ellie@gna.company","ina@gna.company","veronica.park@gna.company","jimmy@gna.company",
-"eddie.kim@gna.company","senna.jeong@gna.company","hyman.park@gna.company","yosef@gna.company",
-"angie.han@gna.company","flicia@gna.company","selene.park@gna.company","mary.choi@gna.company",
-"seny@gna.company","angelique.li@gna.company","kesper.ng@gna.company","sonya.hong@gna.company",
-"liang.wang@gna.company","mac.han@gna.company","ted.yang@gna.company","hailey.jeong@gna.company",
-"randi.ko@gna.company","becky.bae@gna.company","luka.kim@gna.company","rocket.oh@gna.company",
-"ruqe.seo@gna.company","erica.kim@gna.company","liora@gna.company","luvon.lee@gna.company",
-"victor.kim@gna.company","eren.jang@gna.company","josh.sho@gna.company","marisol.kim@gna.company",
-"simon.lee@gna.company","boyle.seo@gna.company","hayden@gna.company","joy@gna.company",
-"may@gna.company","sophia@gna.company","nate.yoo@gna.company","moon@gna.company",
-"teo.park@gna.company","noah.lee@gna.company","yuna.pan@gna.company","lexi.sa@gna.company",
-"vana.i@gna.company","rosea.li@gna.company","rhea.syn@gna.company","faye.kang@gna.company",
-"mima.kang@gna.company","lucy.kim@gna.company","claire.tran@gna.company","maverick.seo@gna.company",
-"lumi.ko@gna.company","sammy.lee@gna.company"
-];
+
+// 이메일:코드 매핑 (HR이 관리)
+const AUTH = {
+"wb@gna.company":"BP7IQS","kai.kim@gna.company":"5TS5PI","jay.heo@gna.company":"RYW7EW",
+"eddakim@gna.company":"L2MLVR","lina.diaz@gna.company":"71ROWE","min@gna.company":"58UDDF",
+"lou@gna.company":"6CFKQ3","julie@gna.company":"CME6HT","eve@gna.company":"OQO8SJ",
+"chloe@gna.company":"EKY4J8","kane@gna.company":"9MJ58X","tommy.kim@gna.company":"U6ZO6O",
+"ellie@gna.company":"6YNDUD","ina@gna.company":"UK8H12","veronica.park@gna.company":"WS5MI9",
+"jimmy@gna.company":"DNSOOC","eddie.kim@gna.company":"D66N7K","senna.jeong@gna.company":"99QGUY",
+"hyman.park@gna.company":"C3EZJA","yosef@gna.company":"W59JYS","angie.han@gna.company":"0UCUWG",
+"flicia@gna.company":"XMME70","selene.park@gna.company":"UNIOOM","mary.choi@gna.company":"3T6ZHH",
+"seny@gna.company":"ZV74WU","angelique.li@gna.company":"ZM0OCC","kesper.ng@gna.company":"K0TO0A",
+"sonya.hong@gna.company":"AOZC9L","liang.wang@gna.company":"151VW7","mac.han@gna.company":"I36DBB",
+"ted.yang@gna.company":"P6PPCW","hailey.jeong@gna.company":"8YSSAS","randi.ko@gna.company":"IAWO7D",
+"becky.bae@gna.company":"HP1XF1","luka.kim@gna.company":"SYTL8G","rocket.oh@gna.company":"FPT74O",
+"ruqe.seo@gna.company":"HXV892","erica.kim@gna.company":"6MY825","liora@gna.company":"JOQ59Q",
+"luvon.lee@gna.company":"D3NXIS","victor.kim@gna.company":"MTL20U","eren.jang@gna.company":"5QSO6A",
+"josh.sho@gna.company":"0V9V6D","marisol.kim@gna.company":"YUF3DU","simon.lee@gna.company":"4Q73MS",
+"boyle.seo@gna.company":"B8G6KX","hayden@gna.company":"24EJT0","joy@gna.company":"0SYB9L",
+"may@gna.company":"ILORL8","sophia@gna.company":"6K700M","nate.yoo@gna.company":"19QDXP",
+"moon@gna.company":"EDGGRE","teo.park@gna.company":"C9B55I","noah.lee@gna.company":"98CPZM",
+"yuna.pan@gna.company":"T1M6HJ","lexi.sa@gna.company":"2B3GYD","vana.i@gna.company":"WN1HYA",
+"rosea.li@gna.company":"0V14FZ","rhea.syn@gna.company":"6RE5J4","faye.kang@gna.company":"X1738Z",
+"mima.kang@gna.company":"PU4B3O","lucy.kim@gna.company":"J9P0A4","claire.tran@gna.company":"7T8W6Q",
+"maverick.seo@gna.company":"YMZ7K5","lumi.ko@gna.company":"QE03AZ","sammy.lee@gna.company":"R29W8G"
+};
 
 // ═══ Data ═══
 const CV=[
@@ -127,19 +137,9 @@ const CV=[
   {en:"Ownership",kr:"오너십",color:"#7C3AED",bg:"#F5F3FF",border:"#DDD6FE",beh:["플레이오가 나의 자랑이 되도록","나다 싶으면 내가","모든 일은 나의 커리어"]},
   {en:"Courage",kr:"용기",color:"#DC2626",bg:"#FEF2F2",border:"#FECACA",beh:["실패는 또 다른 시작점","주저함은 기회를 놓칠 뿐","변화의 시작은 해오던 일로부터"]},
 ];
-const SI=[
-  {n:1,l:"인지 단계",d:"가치를 이해하고 있으나, 업무에서 실천으로 이어지지 못한 단계"},
-  {n:2,l:"시도 단계",d:"실천을 시도하고 있으나, 상황에 따라 일관성이 부족한 단계"},
-  {n:3,l:"실천 단계",d:"업무 중 해당 가치를 의식하고 꾸준히 실천하는 단계"},
-  {n:4,l:"적극적 실천",d:"가치를 자연스럽게 업무에 녹여내며, 주도적으로 실천하는 단계"},
-  {n:5,l:"팀에 전파",d:"본인의 실천을 넘어 동료에게도 긍정적 영향을 주는 단계"},
-];
-const GG=[
-  {g:"A",l:"기대 이상으로 뛰어남",d:"개인 목표 초과 달성, 크로스팀 협업에 주도적 기여, 비즈니스 임팩트가 명확함"},
-  {g:"B",l:"기대에 충분히 부합함",d:"개인 목표를 안정적으로 달성하고, 팀 내 신뢰할 수 있는 기여자로 역할 수행"},
-  {g:"C",l:"보통 수준이었음",d:"핵심 업무는 수행하나 목표 달성이 부분적이거나, 자기주도적 성장이 부족함"},
-  {g:"D",l:"개선이 필요함",d:"목표 미달성이 반복되거나, 협업·태도 면에서 즉각적인 개선 액션이 필요함"},
-];
+const SI=[{n:1,l:"인지 단계",d:"가치를 이해하고 있으나, 업무에서 실천으로 이어지지 못한 단계"},{n:2,l:"시도 단계",d:"실천을 시도하고 있으나, 상황에 따라 일관성이 부족한 단계"},{n:3,l:"실천 단계",d:"업무 중 해당 가치를 의식하고 꾸준히 실천하는 단계"},{n:4,l:"적극적 실천",d:"가치를 자연스럽게 업무에 녹여내며, 주도적으로 실천하는 단계"},{n:5,l:"팀에 전파",d:"본인의 실천을 넘어 동료에게도 긍정적 영향을 주는 단계"}];
+const GG=[{g:"A",l:"기대 이상으로 뛰어남",d:"개인 목표 초과 달성, 크로스팀 협업에 주도적 기여, 비즈니스 임팩트가 명확함"},{g:"B",l:"기대에 충분히 부합함",d:"개인 목표를 안정적으로 달성하고, 팀 내 신뢰할 수 있는 기여자로 역할 수행"},{g:"C",l:"보통 수준이었음",d:"핵심 업무는 수행하나 목표 달성이 부분적이거나, 자기주도적 성장이 부족함"},{g:"D",l:"개선이 필요함",d:"목표 미달성이 반복되거나, 협업·태도 면에서 즉각적인 개선 액션이 필요함"}];
+
 const selfS=[
   {id:"info",t:"기본 정보",f:[{k:"name",l:"이름",tp:"text"},{k:"team",l:"소속(팀명/스쿼드)",tp:"text"},{k:"joinDate",l:"입사일",tp:"date"},{k:"writeDate",l:"작성일",tp:"date"}]},
   {id:"s1",t:"Section 1. 성과 리뷰",sub:"지난 1년간의 성과를 정성·정량 양면으로 돌아봅니다.",f:[{k:"s1q1",l:"지난 1년간 내가 직접 기여했다고 확신할 수 있는 주요 성과와, 그 결과가 팀이나 서비스에 준 영향을 구체적으로 적어주세요.\n가능하다면 핵심 지표(숫자)도 함께 기재해주세요. (예: MAU 증가율, ROAS, 처리 건수, 매출 기여액 등)",tp:"ta"},{k:"s1q2",l:"업무 목표를 달성하지 못한 일이 있다면, 그 원인은 무엇이었고\n돌아봤을 때 어떤 인사이트 혹은 개선점을 발견하셨나요?",tp:"ta"}]},
@@ -159,101 +159,79 @@ const leaderS=[
   {id:"rv",t:"제출 전 확인",tp:"review"},
 ];
 
+// ═══ State ═══
 let D={},step=0,mode=null,authEmail='',submitted=false,saving=false;
 function secs(){return mode==='self'?selfS:leaderS}
 function c(){return secs()[step]}
-function h(t,a,...ch){const e=document.createElement(t);if(a)Object.entries(a).forEach(([k,v])=>{if(k==='style'&&typeof v==='object')Object.assign(e.style,v);else if(k.startsWith('on'))e.addEventListener(k.slice(2).toLowerCase(),v);else if(k==='className')e.className=v;else e.setAttribute(k,v)});ch.flat(Infinity).forEach(x=>{if(x!=null)e.appendChild(typeof x==='string'?document.createTextNode(x):x)});return e}
+function draftKey(){return 'gna_draft_'+mode+'_'+authEmail}
 
-function ok(){
-  const s=c();if(!s)return false;
-  if(s.tp==='review')return true;
-  if(s.tp==='cv')return CV.every(v=>D[v.en+'_score']&&(D[v.en+'_text']||'').trim());
-  if(s.tp==='final')return D.grade&&s.f.every(f=>(D[f.k]||'').trim());
-  if(s.f)return s.f.every(f=>(D[f.k]||'').trim());
-  return true;
+// ═══ Draft (임시저장) ═══
+function saveDraft(){
+  if(!mode||!authEmail)return;
+  try{localStorage.setItem(draftKey(),JSON.stringify({data:D,step:step,grade:D.grade,ts:Date.now()}))}catch(e){}
 }
-function updNav(){const b=document.querySelector('.btn-next');if(b)b.disabled=!ok()}
+function loadDraft(){
+  try{const raw=localStorage.getItem(draftKey());if(!raw)return null;return JSON.parse(raw)}catch(e){return null}
+}
+function clearDraft(){try{localStorage.removeItem(draftKey())}catch(e){}}
+function hasDraft(m){try{return!!localStorage.getItem('gna_draft_'+m+'_'+authEmail)}catch(e){return false}}
+function showToast(msg){
+  const t=document.createElement('div');t.className='saved-toast';t.textContent=msg;
+  document.body.appendChild(t);setTimeout(()=>t.remove(),2200);
+}
+// Auto-save every 30s
+setInterval(()=>{if(mode&&authEmail&&!submitted){saveDraft()}},30000);
 
+// ═══ Helpers ═══
+function h(t,a,...ch){const e=document.createElement(t);if(a)Object.entries(a).forEach(([k,v])=>{if(k==='style'&&typeof v==='object')Object.assign(e.style,v);else if(k.startsWith('on'))e.addEventListener(k.slice(2).toLowerCase(),v);else if(k==='className')e.className=v;else e.setAttribute(k,v)});ch.flat(Infinity).forEach(x=>{if(x!=null)e.appendChild(typeof x==='string'?document.createTextNode(x):x)});return e}
+function ok(){const s=c();if(!s)return false;if(s.tp==='review')return true;if(s.tp==='cv')return CV.every(v=>D[v.en+'_score']&&(D[v.en+'_text']||'').trim());if(s.tp==='final')return D.grade&&s.f.every(f=>(D[f.k]||'').trim());if(s.f)return s.f.every(f=>(D[f.k]||'').trim());return true}
+function updNav(){const b=document.querySelector('.btn-next');if(b)b.disabled=!ok()}
 async function submit(){
   saving=true;R();
   const ts=new Date().toISOString(),p={...D,_type:mode,_email:authEmail,_timestamp:ts};
   try{localStorage.setItem('gna_'+mode+'_'+ts,JSON.stringify(p))}catch(e){}
   if(SHEET_WEBHOOK_URL)try{await fetch(SHEET_WEBHOOK_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})}catch(e){}
-  saving=false;submitted=true;R();
+  clearDraft();saving=false;submitted=true;R();
 }
 function go(n){step=n;window.scrollTo(0,0);R()}
 
 // ═══ Renderers ═══
-function rScaleGuide(){
-  const b=h('div',{className:'guide-box'});b.appendChild(h('div',{className:'title'},'평가 단계 기준'));
-  SI.forEach(s=>{const r=h('div',{className:'guide-row'});r.appendChild(h('div',{className:'guide-num'},String(s.n)));const t=h('div',{className:'guide-text'});t.appendChild(h('strong',null,s.l));t.appendChild(h('span',null,' — '+s.d));r.appendChild(t);b.appendChild(r)});return b;
-}
-function rGrade(){
-  const w=h('div',null),b=h('div',{className:'guide-box'});
-  b.appendChild(h('div',{className:'title'},'종합 등급 선택 *'));
-  const g=h('div',{className:'grade-grid'});
-  GG.forEach(x=>{const a=D.grade===x.g,i=h('div',{className:'grade-item'+(a?' active':''),onClick:()=>{D.grade=x.g;R()}});i.appendChild(h('span',{className:'g'},x.g+'.'));i.appendChild(h('span',{className:'gl'},x.l));i.appendChild(h('div',{className:'gd'},x.d));g.appendChild(i)});
-  b.appendChild(g);w.appendChild(b);return w;
-}
-function rField(f){
-  const d=h('div',{className:'field'}),l=h('label',null,f.l);l.appendChild(h('span',{className:'req'},' *'));d.appendChild(l);
-  if(f.tp==='ta'){const t=h('textarea',{rows:'5'});t.value=D[f.k]||'';t.addEventListener('input',e=>{D[f.k]=e.target.value;updNav()});d.appendChild(t)}
-  else{const i=h('input',{type:f.tp});i.value=D[f.k]||'';i.addEventListener('input',e=>{D[f.k]=e.target.value;updNav()});d.appendChild(i)}
-  return d;
-}
+function rScaleGuide(){const b=h('div',{className:'guide-box'});b.appendChild(h('div',{className:'title'},'평가 단계 기준'));SI.forEach(s=>{const r=h('div',{className:'guide-row'});r.appendChild(h('div',{className:'guide-num'},String(s.n)));const t=h('div',{className:'guide-text'});t.appendChild(h('strong',null,s.l));t.appendChild(h('span',null,' — '+s.d));r.appendChild(t);b.appendChild(r)});return b}
+function rGrade(){const w=h('div',null),b=h('div',{className:'guide-box'});b.appendChild(h('div',{className:'title'},'종합 등급 선택 *'));const g=h('div',{className:'grade-grid'});GG.forEach(x=>{const a=D.grade===x.g,i=h('div',{className:'grade-item'+(a?' active':''),onClick:()=>{D.grade=x.g;R()}});i.appendChild(h('span',{className:'g'},x.g+'.'));i.appendChild(h('span',{className:'gl'},x.l));i.appendChild(h('div',{className:'gd'},x.d));g.appendChild(i)});b.appendChild(g);w.appendChild(b);return w}
+function rField(f){const d=h('div',{className:'field'}),l=h('label',null,f.l);l.appendChild(h('span',{className:'req'},' *'));d.appendChild(l);if(f.tp==='ta'){const t=h('textarea',{rows:'5'});t.value=D[f.k]||'';t.addEventListener('input',e=>{D[f.k]=e.target.value;updNav()});d.appendChild(t)}else{const i=h('input',{type:f.tp});i.value=D[f.k]||'';i.addEventListener('input',e=>{D[f.k]=e.target.value;updNav()});d.appendChild(i)}return d}
 function rCV(cv,m){
-  const card=h('div',{className:'cv-card',style:{background:cv.bg,border:'1.5px solid '+cv.border}});
-  const ti=h('div',{className:'cv-title'});ti.appendChild(h('span',{className:'kr',style:{color:cv.color}},cv.kr));ti.appendChild(h('span',{className:'en',style:{color:cv.color}},cv.en));card.appendChild(ti);
-  const be=h('div',{className:'cv-behaviors'});cv.beh.forEach(b=>be.appendChild(h('span',null,b)));card.appendChild(be);
-  const sk=cv.en+'_score',tk=cv.en+'_text';
-  const ql=m==='self'?`"${cv.kr}" 가치를 얼마나 잘 실천했나요?`:`이 구성원은 "${cv.kr}" 가치를 얼마나 잘 실천했나요?`;
-  const q1=h('div',{className:'cv-q'},ql);q1.appendChild(h('span',{className:'req'},' *'));card.appendChild(q1);
-  const sr=h('div',{className:'scale-row'});
-  SI.forEach(s=>{const a=D[sk]===s.n,b=h('button',{className:'scale-btn'+(a?' active':''),style:a?{background:cv.color,borderColor:cv.color,color:'#fff'}:{},onClick:()=>{D[sk]=s.n;R()}});b.appendChild(h('span',null,String(s.n)));b.appendChild(h('span',{className:'sl'},s.l));sr.appendChild(b)});
-  card.appendChild(sr);
-  const el=m==='self'?'위 점수의 근거가 되는 사례와, 앞으로 더 발전시키고 싶은 부분을 함께 적어주세요.':'위 점수의 근거가 되는 구체적 사례를 적어주세요.';
-  const q2=h('div',{className:'cv-q'},el);q2.appendChild(h('span',{className:'req'},' *'));card.appendChild(q2);
-  const ta=h('textarea',{rows:'3',style:{border:'1.5px solid #e2e8f0',borderRadius:'10px',fontSize:'13px',lineHeight:'1.6',fontFamily:'inherit',background:'#fff',padding:'10px 14px',width:'100%',outline:'none',boxSizing:'border-box',resize:'vertical'}});
-  ta.value=D[tk]||'';ta.addEventListener('input',e=>{D[tk]=e.target.value;updNav()});
-  ta.addEventListener('focus',()=>ta.style.borderColor=cv.color);ta.addEventListener('blur',()=>ta.style.borderColor='#e2e8f0');
-  card.appendChild(ta);return card;
+  const card=h('div',{className:'cv-card',style:{background:cv.bg,border:'1.5px solid '+cv.border}});const ti=h('div',{className:'cv-title'});ti.appendChild(h('span',{className:'kr',style:{color:cv.color}},cv.kr));ti.appendChild(h('span',{className:'en',style:{color:cv.color}},cv.en));card.appendChild(ti);const be=h('div',{className:'cv-behaviors'});cv.beh.forEach(b=>be.appendChild(h('span',null,b)));card.appendChild(be);
+  const sk=cv.en+'_score',tk=cv.en+'_text';const ql=m==='self'?`"${cv.kr}" 가치를 얼마나 잘 실천했나요?`:`이 구성원은 "${cv.kr}" 가치를 얼마나 잘 실천했나요?`;const q1=h('div',{className:'cv-q'},ql);q1.appendChild(h('span',{className:'req'},' *'));card.appendChild(q1);
+  const sr=h('div',{className:'scale-row'});SI.forEach(s=>{const a=D[sk]===s.n,b=h('button',{className:'scale-btn'+(a?' active':''),style:a?{background:cv.color,borderColor:cv.color,color:'#fff'}:{},onClick:()=>{D[sk]=s.n;R()}});b.appendChild(h('span',null,String(s.n)));b.appendChild(h('span',{className:'sl'},s.l));sr.appendChild(b)});card.appendChild(sr);
+  const el=m==='self'?'위 점수의 근거가 되는 사례와, 앞으로 더 발전시키고 싶은 부분을 함께 적어주세요.':'위 점수의 근거가 되는 구체적 사례를 적어주세요.';const q2=h('div',{className:'cv-q'},el);q2.appendChild(h('span',{className:'req'},' *'));card.appendChild(q2);
+  const ta=h('textarea',{rows:'3',style:{border:'1.5px solid #e2e8f0',borderRadius:'10px',fontSize:'13px',lineHeight:'1.6',fontFamily:'inherit',background:'#fff',padding:'10px 14px',width:'100%',outline:'none',boxSizing:'border-box',resize:'vertical'}});ta.value=D[tk]||'';ta.addEventListener('input',e=>{D[tk]=e.target.value;updNav()});ta.addEventListener('focus',()=>ta.style.borderColor=cv.color);ta.addEventListener('blur',()=>ta.style.borderColor='#e2e8f0');card.appendChild(ta);return card;
 }
-function rReview(){
-  const w=h('div',null);
-  secs().filter(s=>s.tp!=='review').forEach((sec,si)=>{
-    const bl=h('div',{className:'review-section'});
-    const hd=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'12px'}});
-    hd.appendChild(h('h4',null,sec.t));hd.appendChild(h('button',{className:'review-edit',onClick:()=>go(si)},'수정하기'));bl.appendChild(hd);
-    if(sec.f){sec.f.forEach(f=>{const it=h('div',{className:'review-item'});const lb=f.l.length>50?f.l.substring(0,50)+'...':f.l;it.appendChild(h('div',{className:'review-label'},lb));const v=D[f.k];it.appendChild(h('div',{className:v?'review-value':'review-empty'},v||'(미작성)'));bl.appendChild(it)})}
-    if(sec.tp==='cv'){CV.forEach(cv=>{const it=h('div',{className:'review-item'});const sc=D[cv.en+'_score'],tx=D[cv.en+'_text'];const sl=sc?SI.find(s=>s.n===sc).l:'';it.appendChild(h('div',{className:'review-label'},cv.kr+' ('+cv.en+')'));it.appendChild(h('div',{className:sc?'review-value':'review-empty'},sc?sc+'점 — '+sl:'(미선택)'));if(tx)it.appendChild(h('div',{style:{fontSize:'12px',color:'#64748b',marginTop:'4px',lineHeight:'1.5',whiteSpace:'pre-line'}},tx));bl.appendChild(it)})}
-    if(sec.tp==='final'){const gi=h('div',{className:'review-item'});gi.appendChild(h('div',{className:'review-label'},'종합 등급'));const gv=D.grade,gf=gv?GG.find(x=>x.g===gv):null;gi.appendChild(h('div',{className:gv?'review-value':'review-empty'},gf?gv+' — '+gf.l:'(미선택)'));bl.appendChild(gi);
-    sec.f.forEach(f=>{const it=h('div',{className:'review-item'});it.appendChild(h('div',{className:'review-label'},'종합 의견'));const v=D[f.k];it.appendChild(h('div',{className:v?'review-value':'review-empty'},v||'(미작성)'));bl.appendChild(it)})}
-    w.appendChild(bl);
-  });return w;
-}
+function rReview(){const w=h('div',null);secs().filter(s=>s.tp!=='review').forEach((sec,si)=>{const bl=h('div',{className:'review-section'});const hd=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'12px'}});hd.appendChild(h('h4',null,sec.t));hd.appendChild(h('button',{className:'review-edit',onClick:()=>go(si)},'수정하기'));bl.appendChild(hd);if(sec.f){sec.f.forEach(f=>{const it=h('div',{className:'review-item'});const lb=f.l.length>50?f.l.substring(0,50)+'...':f.l;it.appendChild(h('div',{className:'review-label'},lb));const v=D[f.k];it.appendChild(h('div',{className:v?'review-value':'review-empty'},v||'(미작성)'));bl.appendChild(it)})}if(sec.tp==='cv'){CV.forEach(cv=>{const it=h('div',{className:'review-item'});const sc=D[cv.en+'_score'],tx=D[cv.en+'_text'];const sl=sc?SI.find(s=>s.n===sc).l:'';it.appendChild(h('div',{className:'review-label'},cv.kr+' ('+cv.en+')'));it.appendChild(h('div',{className:sc?'review-value':'review-empty'},sc?sc+'점 — '+sl:'(미선택)'));if(tx)it.appendChild(h('div',{style:{fontSize:'12px',color:'#64748b',marginTop:'4px',lineHeight:'1.5',whiteSpace:'pre-line'}},tx));bl.appendChild(it)})}if(sec.tp==='final'){const gi=h('div',{className:'review-item'});gi.appendChild(h('div',{className:'review-label'},'종합 등급'));const gv=D.grade,gf=gv?GG.find(x=>x.g===gv):null;gi.appendChild(h('div',{className:gv?'review-value':'review-empty'},gf?gv+' — '+gf.l:'(미선택)'));bl.appendChild(gi);sec.f.forEach(f=>{const it=h('div',{className:'review-item'});it.appendChild(h('div',{className:'review-label'},'종합 의견'));const v=D[f.k];it.appendChild(h('div',{className:v?'review-value':'review-empty'},v||'(미작성)'));bl.appendChild(it)})}w.appendChild(bl)});return w}
 
 // ═══ Main ═══
 function R(){
   const app=document.getElementById('app');app.innerHTML='';
 
-  // Gate - Email auth
+  // Gate - Email + Code
   if(!authEmail){
     const g=h('div',{className:'gate'}),inner=h('div',{style:{maxWidth:'420px',width:'100%'}});
-    inner.appendChild(h('div',{className:'tag'},'GNA COMPANY'));
-    inner.appendChild(h('h1',null,'연봉 재계약 리뷰'));
-    inner.appendChild(h('p',{className:'sub'},'사내 이메일을 입력해주세요'));
-    const inp=h('input',{className:'gate-input',type:'email',placeholder:'name@gna.company'});
-    inp.addEventListener('keydown',e=>{if(e.key==='Enter')tryAuth()});
-    const err=h('div',{className:'gate-error'});
-    inner.appendChild(inp);inner.appendChild(err);
-    inner.appendChild(h('button',{className:'gate-btn',onClick:tryAuth},'확인'));
-    g.appendChild(inner);app.appendChild(g);
-    setTimeout(()=>inp.focus(),100);
+    inner.appendChild(h('div',{className:'tag'},'GNA COMPANY'));inner.appendChild(h('h1',null,'연봉 재계약 리뷰'));
+    inner.appendChild(h('p',{className:'sub'},'한 해를 돌아보며, 서로의 성장을 확인하는 시간입니다'));
+    const f1=h('div',{className:'gate-field'});f1.appendChild(h('div',{className:'gate-label'},'사내 이메일'));
+    const inp1=h('input',{className:'gate-input',type:'email',placeholder:'name@gna.company'});f1.appendChild(inp1);inner.appendChild(f1);
+    const f2=h('div',{className:'gate-field'});f2.appendChild(h('div',{className:'gate-label'},'개인 인증 코드'));
+    const inp2=h('input',{className:'gate-input gate-code',type:'text',placeholder:'코드 6자리',maxlength:'6'});f2.appendChild(inp2);inner.appendChild(f2);
+    const err=h('div',{className:'gate-error'});inner.appendChild(err);
+    inp2.addEventListener('keydown',e=>{if(e.key==='Enter')tryAuth()});
+    inner.appendChild(h('button',{className:'gate-btn',onClick:tryAuth},'입장하기'));
+    g.appendChild(inner);app.appendChild(g);setTimeout(()=>inp1.focus(),100);
     function tryAuth(){
-      const val=inp.value.trim().toLowerCase();
-      if(!val){err.textContent='이메일을 입력해주세요';return}
-      if(ALLOWED_EMAILS.includes(val)){authEmail=val;R()}
-      else{err.textContent='등록되지 않은 이메일입니다. 사내 이메일을 확인해주세요.'}
+      const email=inp1.value.trim().toLowerCase(),code=inp2.value.trim().toUpperCase();
+      if(!email){err.textContent='이메일을 입력해주세요';return}
+      if(!code){err.textContent='인증 코드를 입력해주세요';return}
+      if(!AUTH[email]){err.textContent='등록되지 않은 이메일입니다';return}
+      if(AUTH[email]!==code){err.textContent='인증 코드가 올바르지 않습니다';return}
+      authEmail=email;R();
     }
     return;
   }
@@ -261,30 +239,33 @@ function R(){
   // Landing
   if(!mode){
     const ld=h('div',{className:'landing'}),inner=h('div',{style:{maxWidth:'480px',width:'100%'}});
-    inner.appendChild(h('div',{className:'tag'},'GNA COMPANY'));
-    inner.appendChild(h('h1',null,'연봉 재계약 리뷰'));
+    inner.appendChild(h('div',{className:'tag'},'GNA COMPANY'));inner.appendChild(h('h1',null,'연봉 재계약 리뷰'));
     inner.appendChild(h('p',{className:'sub'},'한 해를 돌아보며, 서로의 성장을 확인하는 시간입니다'));
     inner.appendChild(h('div',{className:'welcome'},'👋 '+authEmail));
-    const b1=h('button',{className:'mode-btn',onClick:()=>{mode='self';step=0;D={};submitted=false;R()}}),i1=h('div');i1.appendChild(h('div',null,'셀프리뷰 작성'));i1.appendChild(h('div',{className:'desc'},'대상자 본인이 직접 작성합니다'));b1.appendChild(i1);b1.appendChild(h('span',{className:'arrow'},'→'));inner.appendChild(b1);
-    const b2=h('button',{className:'mode-btn',onClick:()=>{mode='leader';step=0;D={};submitted=false;R()}}),i2=h('div');i2.appendChild(h('div',null,'리드/동료 평가 작성'));i2.appendChild(h('div',{className:'desc'},'리드 또는 동료가 대상자를 평가합니다'));b2.appendChild(i2);b2.appendChild(h('span',{className:'arrow'},'→'));inner.appendChild(b2);
+
+    const b1=h('button',{className:'mode-btn',onClick:()=>{mode='self';step=0;D={};submitted=false;const dr=loadDraft();if(dr){if(confirm('이전에 임시저장된 내용이 있습니다. 이어서 작성하시겠습니까?')){D=dr.data||{};step=dr.step||0;if(dr.grade)D.grade=dr.grade}else{clearDraft()}}R()}}),i1=h('div');
+    const selfLabel=h('span',null,'셀프리뷰 작성');
+    if(hasDraft('self'))selfLabel.appendChild(h('span',{className:'draft-badge'},'임시저장 있음'));
+    i1.appendChild(selfLabel);i1.appendChild(h('div',{className:'desc'},'대상자 본인이 직접 작성합니다'));b1.appendChild(i1);b1.appendChild(h('span',{className:'arrow'},'→'));inner.appendChild(b1);
+
+    const b2=h('button',{className:'mode-btn',onClick:()=>{mode='leader';step=0;D={};submitted=false;const dr=loadDraft();if(dr){if(confirm('이전에 임시저장된 내용이 있습니다. 이어서 작성하시겠습니까?')){D=dr.data||{};step=dr.step||0;if(dr.grade)D.grade=dr.grade}else{clearDraft()}}R()}}),i2=h('div');
+    const leaderLabel=h('span',null,'리드/동료 평가 작성');
+    if(hasDraft('leader'))leaderLabel.appendChild(h('span',{className:'draft-badge'},'임시저장 있음'));
+    i2.appendChild(leaderLabel);i2.appendChild(h('div',{className:'desc'},'리드 또는 동료가 대상자를 평가합니다'));b2.appendChild(i2);b2.appendChild(h('span',{className:'arrow'},'→'));inner.appendChild(b2);
     ld.appendChild(inner);app.appendChild(ld);return;
   }
 
   // Submitted
-  if(submitted){
-    const dn=h('div',{className:'done'}),inner=h('div',{style:{maxWidth:'420px'}});
-    inner.appendChild(h('div',{className:'icon'},'✅'));inner.appendChild(h('h2',null,'제출 완료'));
-    inner.appendChild(h('p',null,(mode==='self'?'셀프리뷰가':'리드/동료 평가가')+' 성공적으로 제출되었습니다.'));
-    inner.appendChild(h('button',{onClick:()=>{mode=null;step=0;D={};submitted=false;R()}},'처음으로 돌아가기'));
-    dn.appendChild(inner);app.appendChild(dn);return;
-  }
+  if(submitted){const dn=h('div',{className:'done'}),inner=h('div',{style:{maxWidth:'420px'}});inner.appendChild(h('div',{className:'icon'},'✅'));inner.appendChild(h('h2',null,'제출 완료'));inner.appendChild(h('p',null,(mode==='self'?'셀프리뷰가':'리드/동료 평가가')+' 성공적으로 제출되었습니다.'));inner.appendChild(h('button',{onClick:()=>{mode=null;step=0;D={};submitted=false;R()}},'처음으로 돌아가기'));dn.appendChild(inner);app.appendChild(dn);return}
 
   // Form
   const ss=secs(),cu=c(),isLast=step===ss.length-1,prog=((step+1)/ss.length)*100;
   const hdr=h('div',{className:'header'}),hi=h('div',{className:'header-inner'}),tp=h('div',{className:'top'}),ld=h('div');
-  ld.appendChild(h('div',{className:'brand'},'GNA COMPANY'));ld.appendChild(h('h2',null,mode==='self'?'셀프리뷰':'리드/동료 평가'));
-  tp.appendChild(ld);tp.appendChild(h('button',{className:'exit-btn',onClick:()=>{if(confirm('작성 중인 내용이 사라집니다. 나가시겠습니까?')){mode=null;R()}}},'나가기'));
-  hi.appendChild(tp);const pb=h('div',{className:'progress-bar'});pb.appendChild(h('div',{className:'progress-fill',style:{width:prog+'%'}}));hi.appendChild(pb);hdr.appendChild(hi);app.appendChild(hdr);
+  ld.appendChild(h('div',{className:'brand'},'GNA COMPANY'));ld.appendChild(h('h2',null,mode==='self'?'셀프리뷰':'리드/동료 평가'));tp.appendChild(ld);
+  const btns=h('div',{className:'header-btns'});
+  btns.appendChild(h('button',{className:'save-btn',onClick:()=>{saveDraft();showToast('💾 임시저장 완료')}},'임시저장'));
+  btns.appendChild(h('button',{className:'exit-btn',onClick:()=>{saveDraft();if(confirm('임시저장 후 나가시겠습니까?')){mode=null;R()}}},'나가기'));
+  tp.appendChild(btns);hi.appendChild(tp);const pb=h('div',{className:'progress-bar'});pb.appendChild(h('div',{className:'progress-fill',style:{width:prog+'%'}}));hi.appendChild(pb);hdr.appendChild(hi);app.appendChild(hdr);
 
   const ct=h('div',{className:'content'}),cd=h('div',{className:'card'}),ch2=h('div',{className:'card-header'}),td=h('div');
   td.appendChild(h('h3',null,cu.t));if(cu.sub)td.appendChild(h('div',{className:'card-sub'},cu.sub));ch2.appendChild(td);ch2.appendChild(h('span',{className:'step'},(step+1)+' / '+ss.length));cd.appendChild(ch2);

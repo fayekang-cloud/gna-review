@@ -105,6 +105,9 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;backgr
 // ═══ 설정 ═══
 const SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyY0f3UaavynVU_xmi1OskNN_55wM2m_5i-drU5ABBqb5O7RXGDae8aI80GLYyLNEhB/exec";
 
+// 인증코드 만료일 (이 날짜 이후 접근 차단, YYYY-MM-DD 형식)
+const CODE_EXPIRY_DATE = "2026-03-23";  // ← DM 발송일 기준 +14일로 설정
+
 // 이메일:코드 매핑 (HR이 관리)
 const AUTH = {
 "wb@gna.company":"BP7IQS","kai.kim@gna.company":"5TS5PI","jay.heo@gna.company":"RYW7EW",
@@ -138,23 +141,23 @@ const CV=[
   {en:"Courage",kr:"용기",color:"#DC2626",bg:"#FEF2F2",border:"#FECACA",beh:["실패는 또 다른 시작점","주저함은 기회를 놓칠 뿐","변화의 시작은 해오던 일로부터"]},
 ];
 const SI=[{n:1,l:"인지 단계",d:"가치를 이해하고 있으나, 업무에서 실천으로 이어지지 못한 단계"},{n:2,l:"시도 단계",d:"실천을 시도하고 있으나, 상황에 따라 일관성이 부족한 단계"},{n:3,l:"실천 단계",d:"업무 중 해당 가치를 의식하고 꾸준히 실천하는 단계"},{n:4,l:"적극적 실천",d:"가치를 자연스럽게 업무에 녹여내며, 주도적으로 실천하는 단계"},{n:5,l:"팀에 전파",d:"본인의 실천을 넘어 동료에게도 긍정적 영향을 주는 단계"}];
-const GG=[{g:"A",l:"기대 이상으로 뛰어남",d:"개인 목표 초과 달성, 크로스팀 협업에 주도적 기여, 비즈니스 임팩트가 명확함"},{g:"B",l:"기대에 충분히 부합함",d:"개인 목표를 안정적으로 달성하고, 팀 내 신뢰할 수 있는 기여자로 역할 수행"},{g:"C",l:"보통 수준이었음",d:"핵심 업무는 수행하나 목표 달성이 부분적이거나, 자기주도적 성장이 부족함"},{g:"D",l:"개선이 필요함",d:"목표 미달성이 반복되거나, 협업·태도 면에서 즉각적인 개선 액션이 필요함"}];
+const GG=[{g:"A",l:"목표를 초과 달성함",d:"핵심 목표를 넘어서는 성과를 만들었고, 조직 전체의 성과 향상에 주도적으로 기여함"},{g:"B",l:"목표를 안정적으로 달성함",d:"맡은 목표를 일관되게 달성했으며, 팀 내에서 신뢰할 수 있는 기여자로 역할을 수행함"},{g:"C",l:"목표 달성이 부분적이었음",d:"일부 목표는 달성했으나, 기대 수준에는 미치지 못하는 부분이 있었음"},{g:"D",l:"목표 달성에 미흡함",d:"목표 대비 성과가 크게 부족하며, 구체적인 개선 계획과 실행이 필요함"}];
 
 const selfS=[
   {id:"info",t:"기본 정보",f:[{k:"name",l:"이름",tp:"text"},{k:"team",l:"소속(팀명/스쿼드)",tp:"text"},{k:"joinDate",l:"입사일",tp:"date"},{k:"writeDate",l:"작성일",tp:"date"}]},
-  {id:"s1",t:"Section 1. 성과 리뷰",sub:"지난 1년간의 성과를 정성·정량 양면으로 돌아봅니다.",f:[{k:"s1q1",l:"지난 1년간 내가 직접 기여했다고 확신할 수 있는 주요 성과와, 그 결과가 팀이나 서비스에 준 영향을 구체적으로 적어주세요.\n가능하다면 핵심 지표(숫자)도 함께 기재해주세요. (예: MAU 증가율, ROAS, 처리 건수, 매출 기여액 등)",tp:"ta"},{k:"s1q2",l:"업무 목표를 달성하지 못한 일이 있다면, 그 원인은 무엇이었고\n돌아봤을 때 어떤 인사이트 혹은 개선점을 발견하셨나요?",tp:"ta"}]},
-  {id:"s2",t:"Section 2. 협업 & 소통",sub:"회사 목표를 위한 추가 기여와 소통 방식을 돌아봅니다.",f:[{k:"s2q1",l:"회사 목표를 위해 본인의 팀 업무 외에 타팀과 협업하거나 추가로 진행한 업무가 있나요?\n해당 경험과 그 과정에서 회사 매출/퍼포먼스 향상/리소스 감축 등 가져온 변화를 적어주세요.",tp:"ta"}]},
-  {id:"s3",t:"Section 3. 성장 & 혁신",sub:"자기 주도적 개선과 새로운 시도를 평가합니다.",f:[{k:"s3q1",l:"퍼포먼스를 높이기 위해 새로운 방식(AI·자동화 도구 활용 포함)을 시도한 경험이 있나요?\n그 시도가 어떤 변화를 가져왔는지 구체적으로 적어주세요.",tp:"ta"}]},
-  {id:"s4",t:"Section 4. 핵심가치 자가 평가",sub:"GNA의 3대 핵심가치에 대해 스스로 평가합니다.",tp:"cv",mode:"self"},
+  {id:"s1",t:"Section 1. 성과 리뷰",sub:"지난 1년간의 성과를 정성·정량 양면으로 돌아봐 주세요.",f:[{k:"s1q1",l:"지난 1년간 내가 직접 기여한 주요 성과와, 그 결과가 팀이나 서비스에 준 영향을 구체적으로 적어주세요.\n가능하다면 핵심 지표(숫자)도 함께 기재해주세요. (예: MAU 증가율, ROAS, 처리 건수, 매출 기여액 등)",tp:"ta"},{k:"s1q2",l:"업무 목표를 달성하지 못한 일이 있다면, 그 원인은 무엇이었고\n돌아봤을 때 어떤 인사이트 혹은 개선점을 발견하셨나요?",tp:"ta"}]},
+  {id:"s2",t:"Section 2. 협업 & 소통",sub:"회사 목표를 위한 추가 기여와 소통 방식을 돌아봐 주세요.",f:[{k:"s2q1",l:"본인의 팀 업무 외에 타팀과 협업하거나 추가로 진행한 업무가 있나요?\n해당 경험과 그 과정에서 가져온 변화(매출/퍼포먼스 향상/리소스 감축 등)를 적어주세요.",tp:"ta"},{k:"s2q2",l:"협업 과정에서 주도적으로 의견을 개진하거나, 소통 방식을 개선한 경험이 있다면 적어주세요. (선택)",tp:"ta",opt:true}]},
+  {id:"s3",t:"Section 3. 성장 & 혁신",sub:"자기 주도적 개선과 새로운 시도를 돌아봐 주세요.",f:[{k:"s3q1",l:"퍼포먼스를 높이기 위해 새로운 방식(AI·자동화 도구 활용 포함)을 시도한 경험이 있나요?\n그 시도가 어떤 변화를 가져왔는지 구체적으로 적어주세요.",tp:"ta"}]},
+  {id:"s4",t:"Section 4. 핵심가치 자가 평가",sub:"GNA의 3대 핵심가치에 대해 스스로 평가해 주세요.",tp:"cv",mode:"self"},
   {id:"s5",t:"Section 5. 종합 자가 평가",tp:"final",f:[{k:"s5q1",l:"선택한 등급의 근거와 함께, 다음 1년간 집중적으로 성장시키고 싶은 부분을 적어주세요.",tp:"ta"}]},
   {id:"rv",t:"제출 전 확인",tp:"review"},
 ];
 const leaderS=[
   {id:"info",t:"기본 정보",f:[{k:"targetName",l:"평가 대상자 이름",tp:"text"},{k:"targetTeam",l:"대상자 소속(팀명/스쿼드)",tp:"text"},{k:"reviewerName",l:"리드/동료 이름",tp:"text"},{k:"reviewerTeam",l:"리드/동료 소속(팀명/스쿼드)",tp:"text"}]},
-  {id:"s1",t:"Section 1. 성과 평가",sub:"대상자의 주요 성과와 미흡했던 부분을 평가합니다.",f:[{k:"s1q1",l:"이 구성원이 지난 1년간 주도하거나 핵심적으로 기여한 주요 성과와 그 영향을 적어주세요.\n인상적이었던 판단이나 선택이 있었다면 함께 기재해주세요.\n가능하다면 핵심 지표(숫자)도 함께 적어주세요. (예: KPI 달성률, 프로젝트 완료율, 매출 기여도 등)",tp:"ta"},{k:"s1q2",l:"이 구성원이 업무 목표를 달성하지 못한 일이 있었다면, 그 원인은 무엇이었고\n해당 경험에서 어떤 인사이트 혹은 개선점이 있었다고 보시나요?",tp:"ta"}]},
-  {id:"s2",t:"Section 2. 협업 & 신뢰",sub:"회사 목표를 위한 추가 기여와 신뢰 구축 정도를 평가합니다.",f:[{k:"s2q1",l:"이 구성원은 회사 목표를 위해 소속 팀 업무 외에 타팀과 협업하거나 추가 업무를 진행한 경험이 있나요?\n해당 경험과 그 과정에서 회사 매출/퍼포먼스 향상/리소스 감축 등 가져온 변화를 적어주세요.\n또한 동료 간 신뢰를 쌓는 행동(투명한 정보 공유, 약속 이행, 피드백 수용 등)을 일관되게 보여주었나요?",tp:"ta"}]},
-  {id:"s3",t:"Section 3. 성장 & 혁신",sub:"자기 주도적 개선과 새로운 시도를 평가합니다.",f:[{k:"s3q1",l:"이 구성원은 스스로 개선점을 찾고 퍼포먼스를 높이기 위한 새로운 접근(AI·자동화 도구 활용 포함)을 시도하는 태도를 보였나요?\n그 시도가 가져온 변화를 적어주세요.",tp:"ta"}]},
-  {id:"s4",t:"Section 4. 핵심가치 평가",sub:"GNA의 3대 핵심가치 실천 정도를 평가합니다.",tp:"cv",mode:"leader"},
+  {id:"s1",t:"Section 1. 성과 평가",sub:"대상자의 주요 성과와 미흡했던 부분을 평가해 주세요.",f:[{k:"s1q1",l:"이 구성원이 지난 1년간 주도하거나 핵심적으로 기여한 주요 성과와 그 영향을 적어주세요.\n인상적이었던 판단이나 선택이 있었다면 함께 기재해주세요.\n가능하다면 핵심 지표(숫자)도 함께 적어주세요. (예: 설정 목표 대비 달성률, 프로젝트 완료율, 매출 기여도 등)",tp:"ta"},{k:"s1q2",l:"이 구성원이 업무 목표를 달성하지 못한 일이 있었다면, 그 원인은 무엇이었고\n해당 경험에서 어떤 인사이트 혹은 개선점이 있었다고 보시나요?",tp:"ta"}]},
+  {id:"s2",t:"Section 2. 협업 & 신뢰",sub:"회사 목표를 위한 추가 기여와 신뢰 구축 정도를 평가해 주세요.",f:[{k:"s2q1",l:"이 구성원은 소속 팀 업무 외에 타팀과 협업하거나 추가 업무를 진행한 경험이 있나요?\n해당 경험과 그 과정에서 가져온 변화(매출/퍼포먼스 향상/리소스 감축 등)를 적어주세요.",tp:"ta"},{k:"s2q2",l:"협업 과정에서 주도적으로 의견을 개진하고, 동료 간 신뢰를 쌓는 행동(투명한 정보 공유, 약속 이행, 피드백 수용 등)을 일관되게 보여주었나요? (선택)",tp:"ta",opt:true}]},
+  {id:"s3",t:"Section 3. 성장 & 혁신",sub:"자기 주도적 개선과 새로운 시도를 평가해 주세요.",f:[{k:"s3q1",l:"이 구성원은 스스로 개선점을 찾고 퍼포먼스를 높이기 위한 새로운 접근(AI·자동화 도구 활용 포함)을 시도하는 태도를 보였나요?\n그 시도가 가져온 변화를 적어주세요.",tp:"ta"}]},
+  {id:"s4",t:"Section 4. 핵심가치 평가",sub:"GNA의 3대 핵심가치 실천 정도를 평가해 주세요.",tp:"cv",mode:"leader"},
   {id:"s5",t:"Section 5. 종합 평가",tp:"final",f:[{k:"s5q1",l:"선택한 등급의 근거와 함께, 앞으로 이 구성원이 더 강화하거나 변화해야 할 역량을 적어주세요.",tp:"ta"}]},
   {id:"rv",t:"제출 전 확인",tp:"review"},
 ];
@@ -184,7 +187,7 @@ setInterval(()=>{if(mode&&authEmail&&!submitted){saveDraft()}},30000);
 
 // ═══ Helpers ═══
 function h(t,a,...ch){const e=document.createElement(t);if(a)Object.entries(a).forEach(([k,v])=>{if(k==='style'&&typeof v==='object')Object.assign(e.style,v);else if(k.startsWith('on'))e.addEventListener(k.slice(2).toLowerCase(),v);else if(k==='className')e.className=v;else e.setAttribute(k,v)});ch.flat(Infinity).forEach(x=>{if(x!=null)e.appendChild(typeof x==='string'?document.createTextNode(x):x)});return e}
-function ok(){const s=c();if(!s)return false;if(s.tp==='review')return true;if(s.tp==='cv')return CV.every(v=>D[v.en+'_score']&&(D[v.en+'_text']||'').trim());if(s.tp==='final')return D.grade&&s.f.every(f=>(D[f.k]||'').trim());if(s.f)return s.f.every(f=>(D[f.k]||'').trim());return true}
+function ok(){const s=c();if(!s)return false;if(s.tp==='review')return true;if(s.tp==='cv')return CV.every(v=>D[v.en+'_score']&&(D[v.en+'_text']||'').trim());if(s.tp==='final')return D.grade&&s.f.every(f=>(D[f.k]||'').trim());if(s.f)return s.f.filter(f=>!f.opt).every(f=>(D[f.k]||'').trim());return true}
 function updNav(){const b=document.querySelector('.btn-next');if(b)b.disabled=!ok()}
 async function submit(){
   saving=true;R();
@@ -198,7 +201,7 @@ function go(n){step=n;window.scrollTo(0,0);R()}
 // ═══ Renderers ═══
 function rScaleGuide(){const b=h('div',{className:'guide-box'});b.appendChild(h('div',{className:'title'},'평가 단계 기준'));SI.forEach(s=>{const r=h('div',{className:'guide-row'});r.appendChild(h('div',{className:'guide-num'},String(s.n)));const t=h('div',{className:'guide-text'});t.appendChild(h('strong',null,s.l));t.appendChild(h('span',null,' — '+s.d));r.appendChild(t);b.appendChild(r)});return b}
 function rGrade(){const w=h('div',null),b=h('div',{className:'guide-box'});b.appendChild(h('div',{className:'title'},'종합 등급 선택 *'));const g=h('div',{className:'grade-grid'});GG.forEach(x=>{const a=D.grade===x.g,i=h('div',{className:'grade-item'+(a?' active':''),onClick:()=>{D.grade=x.g;R()}});i.appendChild(h('span',{className:'g'},x.g+'.'));i.appendChild(h('span',{className:'gl'},x.l));i.appendChild(h('div',{className:'gd'},x.d));g.appendChild(i)});b.appendChild(g);w.appendChild(b);return w}
-function rField(f){const d=h('div',{className:'field'}),l=h('label',null,f.l);l.appendChild(h('span',{className:'req'},' *'));d.appendChild(l);if(f.tp==='ta'){const t=h('textarea',{rows:'5'});t.value=D[f.k]||'';t.addEventListener('input',e=>{D[f.k]=e.target.value;updNav()});d.appendChild(t)}else{const i=h('input',{type:f.tp});i.value=D[f.k]||'';i.addEventListener('input',e=>{D[f.k]=e.target.value;updNav()});d.appendChild(i)}return d}
+function rField(f){const d=h('div',{className:'field'}),l=h('label',null,f.l);if(!f.opt)l.appendChild(h('span',{className:'req'},' *'));d.appendChild(l);if(f.tp==='ta'){const t=h('textarea',{rows:'5'});t.value=D[f.k]||'';t.addEventListener('input',e=>{D[f.k]=e.target.value;updNav()});d.appendChild(t)}else{const i=h('input',{type:f.tp});i.value=D[f.k]||'';i.addEventListener('input',e=>{D[f.k]=e.target.value;updNav()});d.appendChild(i)}return d}
 function rCV(cv,m){
   const card=h('div',{className:'cv-card',style:{background:cv.bg,border:'1.5px solid '+cv.border}});const ti=h('div',{className:'cv-title'});ti.appendChild(h('span',{className:'kr',style:{color:cv.color}},cv.kr));ti.appendChild(h('span',{className:'en',style:{color:cv.color}},cv.en));card.appendChild(ti);const be=h('div',{className:'cv-behaviors'});cv.beh.forEach(b=>be.appendChild(h('span',null,b)));card.appendChild(be);
   const sk=cv.en+'_score',tk=cv.en+'_text';const ql=m==='self'?`"${cv.kr}" 가치를 얼마나 잘 실천했나요?`:`이 구성원은 "${cv.kr}" 가치를 얼마나 잘 실천했나요?`;const q1=h('div',{className:'cv-q'},ql);q1.appendChild(h('span',{className:'req'},' *'));card.appendChild(q1);
@@ -229,6 +232,9 @@ function R(){
       const email=inp1.value.trim().toLowerCase(),code=inp2.value.trim().toUpperCase();
       if(!email){err.textContent='이메일을 입력해주세요';return}
       if(!code){err.textContent='인증 코드를 입력해주세요';return}
+      // 만료일 체크
+      const now=new Date(),expiry=new Date(CODE_EXPIRY_DATE+'T23:59:59');
+      if(now>expiry){err.textContent='리뷰 작성 기간이 종료되었습니다. People팀에 문의해주세요.';return}
       if(!AUTH[email]){err.textContent='등록되지 않은 이메일입니다';return}
       if(AUTH[email]!==code){err.textContent='인증 코드가 올바르지 않습니다';return}
       authEmail=email;R();

@@ -8,6 +8,8 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;background:#f1f5f9;color:#1e293b;min-height:100vh}
+
+/* ── Gate ── */
 .gate{min-height:100vh;background:linear-gradient(160deg,#0f172a 0%,#1e293b 50%,#0f172a 100%);display:flex;align-items:center;justify-content:center;text-align:center;padding:24px}
 .gate h1{font-size:28px;font-weight:800;color:#f8fafc;margin:0 0 8px}
 .gate .sub{color:#64748b;font-size:14px;margin:0 0 28px;line-height:1.6}
@@ -21,6 +23,8 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;backgr
 .gate-error{color:#ef4444;font-size:13px;margin-top:8px;min-height:20px;text-align:center}
 .gate-btn{padding:12px 32px;border-radius:12px;background:#2563eb;color:#fff;font-size:14px;font-weight:600;border:none;cursor:pointer;font-family:inherit;margin-top:8px;transition:background .2s;width:100%;max-width:320px}
 .gate-btn:hover{background:#1d4ed8}
+
+/* ── Landing ── */
 .landing{min-height:100vh;background:linear-gradient(160deg,#0f172a 0%,#1e293b 50%,#0f172a 100%);display:flex;align-items:center;justify-content:center;text-align:center;padding:24px}
 .landing h1{font-size:32px;font-weight:800;color:#f8fafc;margin:0 0 8px}
 .landing .sub{color:#64748b;font-size:14px;margin:0 0 40px;line-height:1.6}
@@ -31,37 +35,59 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;backgr
 .mode-btn .desc{font-size:12px;font-weight:400;color:#94a3b8;margin-top:4px}
 .mode-btn .arrow{font-size:22px}
 .draft-badge{display:inline-block;padding:2px 8px;border-radius:6px;background:#fef3c7;color:#92400e;font-size:11px;font-weight:600;margin-left:8px}
-.header{background:#0f172a;padding:20px 24px 16px;position:sticky;top:0;z-index:10}
-.header-inner{max-width:640px;margin:0 auto}
-.header .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+
+/* ── Header ── */
+.header{background:#0f172a;padding:16px 24px;position:sticky;top:0;z-index:20}
+.header-inner{max-width:720px;margin:0 auto}
+.header .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .header .brand{font-size:11px;letter-spacing:2px;color:#64748b}
 .header h2{margin:2px 0 0;font-size:17px;font-weight:700;color:#f8fafc}
 .header-btns{display:flex;gap:8px}
 .exit-btn,.save-btn{background:none;border:1px solid #334155;border-radius:8px;padding:6px 14px;color:#94a3b8;font-size:12px;cursor:pointer;font-family:inherit;transition:all .2s}
 .save-btn{border-color:#059669;color:#34d399}
 .save-btn:hover{background:#059669;color:#fff}
-.saved-toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:#059669;color:#fff;padding:10px 24px;border-radius:10px;font-size:13px;font-weight:600;z-index:100;animation:fadeout 2s forwards}
-@keyframes fadeout{0%,70%{opacity:1}100%{opacity:0}}
 .progress-bar{height:3px;background:#1e293b;border-radius:2px;overflow:hidden}
 .progress-fill{height:100%;background:linear-gradient(90deg,#2563eb,#60a5fa);border-radius:2px;transition:width .4s ease}
-.content{max-width:640px;margin:0 auto;padding:24px 20px 120px}
-.card{background:#fff;border-radius:16px;border:1px solid #e5e7eb;overflow:hidden;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+
+/* ── Section Nav (sticky pills) ── */
+.section-nav{position:sticky;top:68px;z-index:15;background:rgba(241,245,249,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid #e2e8f0;padding:10px 0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.section-nav::-webkit-scrollbar{display:none}
+.nav-inner{max-width:720px;margin:0 auto;padding:0 20px;display:flex;gap:6px}
+.nav-pill{flex-shrink:0;padding:6px 14px;font-size:12px;font-weight:600;color:#64748b;background:#fff;border:1.5px solid #e2e8f0;border-radius:20px;cursor:pointer;transition:all .15s;white-space:nowrap;font-family:inherit}
+.nav-pill:hover{border-color:#93c5fd;color:#2563eb}
+.nav-pill.active{background:#2563eb;color:#fff;border-color:#2563eb}
+.nav-pill.filled{background:#ecfdf5;color:#059669;border-color:#6ee7b7}
+
+/* ── Content ── */
+.content{max-width:720px;margin:0 auto;padding:24px 20px 80px}
+
+/* ── Card ── */
+.card{background:#fff;border-radius:16px;border:1px solid #e5e7eb;overflow:hidden;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.04);scroll-margin-top:120px}
 .card-header{padding:18px 24px;border-bottom:1px solid #f1f5f9;background:#fafbfc;display:flex;align-items:center;justify-content:space-between}
 .card-header h3{font-size:16px;font-weight:700}
 .card-header .step{font-size:12px;color:#94a3b8}
 .card-sub{font-size:13px;color:#94a3b8;margin-top:4px}
 .card-body{padding:20px 24px}
+
+/* ── Fields ── */
 .field{margin-bottom:20px}
+.field:last-child{margin-bottom:0}
 .field label{display:block;font-size:14px;font-weight:600;color:#1e293b;margin-bottom:6px;line-height:1.5;white-space:pre-line}
 .field .req{color:#ef4444}
 .field input,.field textarea{width:100%;padding:10px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;font-family:inherit;background:#fafbfc;transition:border .2s;outline:none}
 .field textarea{resize:vertical;line-height:1.7;min-height:120px}
 .field input:focus,.field textarea:focus{border-color:#2563eb}
+
+/* ── Guide Box ── */
 .guide-box{padding:16px;border-radius:12px;background:#f8fafc;border:1px solid #e5e7eb;margin-bottom:20px}
 .guide-box .title{font-size:13px;font-weight:700;color:#475569;margin-bottom:10px}
 .guide-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .guide-num{width:26px;height:26px;border-radius:8px;background:#2563eb;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
-.guide-text{font-size:12px;color:#334155}.guide-text strong{color:#1e293b}.guide-text span{color:#64748b}
+.guide-text{font-size:12px;color:#334155}
+.guide-text strong{color:#1e293b}
+.guide-text span{color:#64748b}
+
+/* ── Grade ── */
 .grade-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
 .grade-item{padding:10px 14px;border-radius:10px;background:#fff;border:2px solid #e5e7eb;cursor:pointer;transition:all .15s}
 .grade-item:hover{border-color:#93c5fd}
@@ -69,46 +95,66 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;backgr
 .grade-item .g{font-size:14px;font-weight:800;color:#2563eb}
 .grade-item .gl{font-size:12px;font-weight:600;color:#1e293b;margin-left:4px}
 .grade-item .gd{font-size:11px;color:#94a3b8;margin-top:3px;line-height:1.4}
+
+/* ── Core Value ── */
 .cv-card{padding:20px;border-radius:14px;margin-bottom:16px}
 .cv-title{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.cv-title .kr{font-size:20px;font-weight:800}.cv-title .en{font-size:13px;opacity:.7;font-weight:500}
+.cv-title .kr{font-size:20px;font-weight:800}
+.cv-title .en{font-size:13px;opacity:.7;font-weight:500}
 .cv-behaviors{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
 .cv-behaviors span{padding:3px 10px;border-radius:6px;border:none;font-size:11px;color:#94a3b8}
 .cv-q{font-size:13px;font-weight:600;color:#1e293b;margin-bottom:6px}
 .scale-row{display:flex;gap:8px;margin:8px 0 16px}
 .scale-btn{width:52px;padding:8px 0;border-radius:10px;border:2px solid #e2e8f0;background:#fff;color:#64748b;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;align-items:center;gap:3px;font-family:inherit}
-.scale-btn.active{color:#fff}.scale-btn .sl{font-size:9px;font-weight:500;opacity:.9}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e5e7eb;padding:12px 20px;z-index:10}
-.bottom-inner{max-width:640px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
-.btn-prev{padding:10px 20px;border-radius:10px;border:1.5px solid #e2e8f0;background:#fff;color:#475569;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
-.btn-prev:disabled{color:#cbd5e1;cursor:default}
-.btn-next{padding:10px 24px;border-radius:10px;border:none;background:#2563eb;color:#fff;font-size:14px;font-weight:700;cursor:pointer;transition:background .2s;font-family:inherit}
-.btn-next:disabled{background:#cbd5e1;cursor:default}
-.step-indicator{font-size:12px;color:#94a3b8}
-.review-section{margin-bottom:16px;padding:16px 20px;border-radius:12px;background:#fff;border:1px solid #e5e7eb}
-.review-section h4{font-size:14px;font-weight:700;color:#2563eb;margin:0}
-.review-item{margin-bottom:10px}.review-label{font-size:12px;color:#94a3b8;margin-bottom:2px}
-.review-value{font-size:13px;color:#1e293b;line-height:1.6;white-space:pre-line}
-.review-empty{font-size:13px;color:#cbd5e1;font-style:italic}
-.review-edit{font-size:12px;color:#2563eb;cursor:pointer;background:none;border:none;font-family:inherit;text-decoration:underline}
+.scale-btn.active{color:#fff}
+.scale-btn .sl{font-size:9px;font-weight:500;opacity:.9}
+
+/* ── Submit Bar (fixed bottom) ── */
+.submit-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e5e7eb;padding:12px 20px;z-index:10}
+.submit-inner{max-width:720px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.submit-info{font-size:12px;color:#94a3b8}
+.submit-info .count{font-weight:700;color:#2563eb}
+.submit-info .done-count{color:#059669}
+.btn-submit{padding:10px 32px;border-radius:10px;border:none;background:#2563eb;color:#fff;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit}
+.btn-submit:hover{background:#1d4ed8}
+.btn-submit:disabled{background:#cbd5e1;cursor:default}
+
+/* ── Toast ── */
+.saved-toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:#059669;color:#fff;padding:10px 24px;border-radius:10px;font-size:13px;font-weight:600;z-index:100;animation:fadeout 2s forwards}
+@keyframes fadeout{0%,70%{opacity:1}100%{opacity:0}}
+
+/* ── Done ── */
 .done{min-height:100vh;background:linear-gradient(160deg,#0f172a 0%,#1e293b 50%,#0f172a 100%);display:flex;align-items:center;justify-content:center;text-align:center;padding:24px}
 .done .icon{font-size:56px;margin-bottom:16px}
 .done h2{color:#f8fafc;font-size:24px;font-weight:800;margin:0 0 8px}
 .done p{color:#94a3b8;font-size:14px;margin:0 0 32px;line-height:1.6}
 .done button{padding:14px 32px;border-radius:12px;background:#2563eb;color:#fff;font-size:14px;font-weight:600;border:none;cursor:pointer;font-family:inherit}
-@media(max-width:480px){.landing h1,.gate h1{font-size:26px}.grade-grid{grid-template-columns:1fr}.scale-row{gap:5px}.scale-btn{width:44px;font-size:12px}.gate-input{width:100%}}
+
+/* ── Section Divider ── */
+.section-divider{height:4px;border-radius:2px;margin:8px 0 20px;background:linear-gradient(90deg,#2563eb22,#2563eb08)}
+
+/* ── Scroll to top ── */
+.scroll-top{position:fixed;bottom:70px;right:20px;width:40px;height:40px;border-radius:50%;background:#2563eb;color:#fff;border:none;cursor:pointer;font-size:18px;display:none;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(37,99,235,.3);z-index:10;transition:opacity .2s}
+.scroll-top.show{display:flex}
+
+@media(max-width:480px){
+  .landing h1,.gate h1{font-size:26px}
+  .grade-grid{grid-template-columns:1fr}
+  .scale-row{gap:5px}
+  .scale-btn{width:44px;font-size:12px}
+  .nav-pill{padding:5px 11px;font-size:11px}
+}
 </style>
 </head>
 <body>
 <div id="app"></div>
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
 <script>
 // ═══ 설정 ═══
 const SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzL0S2Rjc2Ic9hFI0Hjm4y8Ui_ETC1fCct4hwOJjmrHAinCi2YhrSw1McgxkYYi2BVcvA/exec";
+const CODE_EXPIRY_DATE = "2026-03-23";
 
-// 인증코드 만료일 (이 날짜 이후 접근 차단, YYYY-MM-DD 형식)
-const CODE_EXPIRY_DATE = "2026-03-23";  // ← DM 발송일 기준 +14일로 설정
-
-// 이메일:코드 매핑 (HR이 관리)
 const AUTH = {
 "wb@gna.company":"BP7IQS","kai.kim@gna.company":"5TS5PI","jay.heo@gna.company":"RYW7EW",
 "eddakim@gna.company":"L2MLVR","lina.diaz@gna.company":"71ROWE","min@gna.company":"58UDDF",
@@ -143,82 +189,243 @@ const CV=[
 const SI=[{n:1,l:"인지 단계",d:"가치를 이해하고 있으나, 업무에서 실천으로 이어지지 못한 단계"},{n:2,l:"시도 단계",d:"실천을 시도하고 있으나, 상황에 따라 일관성이 부족한 단계"},{n:3,l:"실천 단계",d:"업무 중 해당 가치를 의식하고 꾸준히 실천하는 단계"},{n:4,l:"적극적 실천",d:"가치를 자연스럽게 업무에 녹여내며, 주도적으로 실천하는 단계"},{n:5,l:"팀에 전파",d:"본인의 실천을 넘어 동료에게도 긍정적 영향을 주는 단계"}];
 const GG=[{g:"A",l:"목표를 초과 달성함",d:"핵심 목표를 넘어서는 성과를 만들었고, 조직 전체의 성과 향상에 주도적으로 기여함"},{g:"B",l:"목표를 안정적으로 달성함",d:"맡은 목표를 일관되게 달성했으며, 팀 내에서 신뢰할 수 있는 기여자로 역할을 수행함"},{g:"C",l:"목표 달성이 부분적이었음",d:"일부 목표는 달성했으나, 기대 수준에는 미치지 못하는 부분이 있었음"},{g:"D",l:"목표 달성에 미흡함",d:"목표 대비 성과가 크게 부족하며, 구체적인 개선 계획과 실행이 필요함"}];
 
+// ═══ Section definitions ═══
 const selfS=[
-  {id:"info",t:"기본 정보",f:[{k:"name",l:"영어 닉네임(영어)",tp:"text",hint:"작성 예시: cherry"},{k:"team",l:"소속(팀명/스쿼드)",tp:"text"},{k:"joinDate",l:"입사일",tp:"date"},{k:"writeDate",l:"작성일",tp:"date"}]},
-  {id:"s1",t:"Section 1. 성과 리뷰",sub:"지난 1년간의 성과를 정성·정량 양면으로 돌아봐 주세요.",f:[{k:"s1q1",l:"지난 1년간 내가 직접 기여한 주요 성과와, 그 결과가 팀이나 서비스에 준 영향을 구체적으로 적어주세요.\n가능하다면 핵심 지표(숫자)도 함께 기재해주세요. (예: MAU 증가율, ROAS, 처리 건수, 매출 기여액 등)",tp:"ta"},{k:"s1q2",l:"업무 목표를 달성하지 못한 일이 있다면, 그 원인은 무엇이었고\n돌아봤을 때 어떤 인사이트 혹은 개선점을 발견하셨나요?",tp:"ta"}]},
-  {id:"s2",t:"Section 2. 협업 & 소통",sub:"회사 목표를 위한 추가 기여와 소통 방식을 돌아봐 주세요.",f:[{k:"s2q1",l:"본인의 팀 업무 외에 타팀과 협업하거나 추가로 진행한 업무가 있나요?\n해당 경험과 그 과정에서 가져온 변화(매출/퍼포먼스 향상/리소스 감축 등)를 적어주세요.",tp:"ta"},{k:"s2q2",l:"협업 과정에서 주도적으로 의견을 개진하거나, 소통 방식을 개선한 경험이 있다면 적어주세요. (선택)",tp:"ta",opt:true}]},
-  {id:"s3",t:"Section 3. 성장 & 혁신",sub:"자기 주도적 개선과 새로운 시도를 돌아봐 주세요.",f:[{k:"s3q1",l:"퍼포먼스를 높이기 위해 새로운 방식(AI·자동화 도구 활용 포함)을 시도한 경험이 있나요?\n그 시도가 어떤 변화를 가져왔는지 구체적으로 적어주세요.",tp:"ta"}]},
-  {id:"s4",t:"Section 4. 핵심가치 자가 평가",sub:"GNA의 3대 핵심가치에 대해 스스로 평가해 주세요.",tp:"cv",mode:"self"},
-  {id:"s5",t:"Section 5. 종합 자가 평가",tp:"final",f:[{k:"s5q1",l:"선택한 등급의 근거와 함께, 다음 1년간 집중적으로 성장시키고 싶은 부분을 적어주세요.",tp:"ta"}]},
-  {id:"rv",t:"제출 전 확인",tp:"review"},
+  {id:"info",t:"기본 정보",nav:"기본정보",f:[{k:"name",l:"영어 닉네임(영어)",tp:"text",hint:"작성 예시: cherry"},{k:"team",l:"소속(팀명/스쿼드)",tp:"text"},{k:"joinDate",l:"입사일",tp:"date"},{k:"writeDate",l:"작성일",tp:"date"}]},
+  {id:"s1",t:"Section 1. 성과 리뷰",nav:"성과 리뷰",sub:"지난 1년간의 성과를 정성·정량 양면으로 돌아봐 주세요.",f:[{k:"s1q1",l:"지난 1년간 내가 직접 기여한 주요 성과와, 그 결과가 팀이나 서비스에 준 영향을 구체적으로 적어주세요.\n가능하다면 핵심 지표(숫자)도 함께 기재해주세요. (예: MAU 증가율, ROAS, 처리 건수, 매출 기여액 등)",tp:"ta"},{k:"s1q2",l:"업무 목표를 달성하지 못한 일이 있다면, 그 원인은 무엇이었고\n돌아봤을 때 어떤 인사이트 혹은 개선점을 발견하셨나요?",tp:"ta"}]},
+  {id:"s2",t:"Section 2. 협업 & 소통",nav:"협업·소통",sub:"회사 목표를 위한 추가 기여와 소통 방식을 돌아봐 주세요.",f:[{k:"s2q1",l:"본인의 팀 업무 외에 타팀과 협업하거나 추가로 진행한 업무가 있나요?\n해당 경험과 그 과정에서 가져온 변화(매출/퍼포먼스 향상/리소스 감축 등)를 적어주세요.",tp:"ta"},{k:"s2q2",l:"협업 과정에서 주도적으로 의견을 개진하거나, 소통 방식을 개선한 경험이 있다면 적어주세요. (선택)",tp:"ta",opt:true}]},
+  {id:"s3",t:"Section 3. 성장 & 혁신",nav:"성장·혁신",sub:"자기 주도적 개선과 새로운 시도를 돌아봐 주세요.",f:[{k:"s3q1",l:"퍼포먼스를 높이기 위해 새로운 방식(AI·자동화 도구 활용 포함)을 시도한 경험이 있나요?\n그 시도가 어떤 변화를 가져왔는지 구체적으로 적어주세요.",tp:"ta"}]},
+  {id:"s4",t:"Section 4. 핵심가치 자가 평가",nav:"핵심가치",sub:"GNA의 3대 핵심가치에 대해 스스로 평가해 주세요.",tp:"cv",mode:"self"},
+  {id:"s5",t:"Section 5. 종합 자가 평가",nav:"종합 평가",tp:"final",f:[{k:"s5q1",l:"선택한 등급의 근거와 함께, 다음 1년간 집중적으로 성장시키고 싶은 부분을 적어주세요.",tp:"ta"}]},
 ];
 const leaderS=[
-  {id:"info",t:"기본 정보",f:[{k:"targetName",l:"평가 대상자 이름",tp:"text"},{k:"targetEmail",l:"대상자 이메일",tp:"email"},{k:"targetTeam",l:"대상자 소속(팀명/스쿼드)",tp:"text"},{k:"reviewerName",l:"리드/동료 이름",tp:"text"},{k:"reviewerTeam",l:"리드/동료 소속(팀명/스쿼드)",tp:"text"}]},
-  {id:"s1",t:"Section 1. 성과 평가",sub:"대상자의 주요 성과와 미흡했던 부분을 평가해 주세요.",f:[{k:"s1q1",l:"이 구성원이 지난 1년간 주도하거나 핵심적으로 기여한 주요 성과와 그 영향을 적어주세요.\n인상적이었던 판단이나 선택이 있었다면 함께 기재해주세요.\n가능하다면 핵심 지표(숫자)도 함께 적어주세요. (예: 설정 목표 대비 달성률, 프로젝트 완료율, 매출 기여도 등)",tp:"ta"},{k:"s1q2",l:"이 구성원이 업무 목표를 달성하지 못한 일이 있었다면, 그 원인은 무엇이었고\n해당 경험에서 어떤 인사이트 혹은 개선점이 있었다고 보시나요?",tp:"ta"}]},
-  {id:"s2",t:"Section 2. 협업 & 신뢰",sub:"회사 목표를 위한 추가 기여와 신뢰 구축 정도를 평가해 주세요.",f:[{k:"s2q1",l:"이 구성원은 소속 팀 업무 외에 타팀과 협업하거나 추가 업무를 진행한 경험이 있나요?\n해당 경험과 그 과정에서 가져온 변화(매출/퍼포먼스 향상/리소스 감축 등)를 적어주세요.",tp:"ta"},{k:"s2q2",l:"협업 과정에서 주도적으로 의견을 개진하고, 동료 간 신뢰를 쌓는 행동(투명한 정보 공유, 약속 이행, 피드백 수용 등)을 일관되게 보여주었나요? (선택)",tp:"ta",opt:true}]},
-  {id:"s3",t:"Section 3. 성장 & 혁신",sub:"자기 주도적 개선과 새로운 시도를 평가해 주세요.",f:[{k:"s3q1",l:"이 구성원은 스스로 개선점을 찾고 퍼포먼스를 높이기 위한 새로운 접근(AI·자동화 도구 활용 포함)을 시도하는 태도를 보였나요?\n그 시도가 가져온 변화를 적어주세요.",tp:"ta"}]},
-  {id:"s4",t:"Section 4. 핵심가치 평가",sub:"GNA의 3대 핵심가치 실천 정도를 평가해 주세요.",tp:"cv",mode:"leader"},
-  {id:"s5",t:"Section 5. 종합 평가",tp:"final",f:[{k:"s5q1",l:"선택한 등급의 근거와 함께, 앞으로 이 구성원이 더 강화하거나 변화해야 할 역량을 적어주세요.",tp:"ta"}]},
-  {id:"rv",t:"제출 전 확인",tp:"review"},
+  {id:"info",t:"기본 정보",nav:"기본정보",f:[{k:"targetName",l:"평가 대상자 이름",tp:"text"},{k:"targetEmail",l:"대상자 이메일",tp:"email"},{k:"targetTeam",l:"대상자 소속(팀명/스쿼드)",tp:"text"},{k:"reviewerName",l:"리드/동료 이름",tp:"text"},{k:"reviewerTeam",l:"리드/동료 소속(팀명/스쿼드)",tp:"text"}]},
+  {id:"s1",t:"Section 1. 성과 평가",nav:"성과 평가",sub:"대상자의 주요 성과와 미흡했던 부분을 평가해 주세요.",f:[{k:"s1q1",l:"이 구성원이 지난 1년간 주도하거나 핵심적으로 기여한 주요 성과와 그 영향을 적어주세요.\n인상적이었던 판단이나 선택이 있었다면 함께 기재해주세요.\n가능하다면 핵심 지표(숫자)도 함께 적어주세요. (예: 설정 목표 대비 달성률, 프로젝트 완료율, 매출 기여도 등)",tp:"ta"},{k:"s1q2",l:"이 구성원이 업무 목표를 달성하지 못한 일이 있었다면, 그 원인은 무엇이었고\n해당 경험에서 어떤 인사이트 혹은 개선점이 있었다고 보시나요?",tp:"ta"}]},
+  {id:"s2",t:"Section 2. 협업 & 신뢰",nav:"협업·신뢰",sub:"회사 목표를 위한 추가 기여와 신뢰 구축 정도를 평가해 주세요.",f:[{k:"s2q1",l:"이 구성원은 소속 팀 업무 외에 타팀과 협업하거나 추가 업무를 진행한 경험이 있나요?\n해당 경험과 그 과정에서 가져온 변화(매출/퍼포먼스 향상/리소스 감축 등)를 적어주세요.",tp:"ta"},{k:"s2q2",l:"협업 과정에서 주도적으로 의견을 개진하고, 동료 간 신뢰를 쌓는 행동(투명한 정보 공유, 약속 이행, 피드백 수용 등)을 일관되게 보여주었나요? (선택)",tp:"ta",opt:true}]},
+  {id:"s3",t:"Section 3. 성장 & 혁신",nav:"성장·혁신",sub:"자기 주도적 개선과 새로운 시도를 평가해 주세요.",f:[{k:"s3q1",l:"이 구성원은 스스로 개선점을 찾고 퍼포먼스를 높이기 위한 새로운 접근(AI·자동화 도구 활용 포함)을 시도하는 태도를 보였나요?\n그 시도가 가져온 변화를 적어주세요.",tp:"ta"}]},
+  {id:"s4",t:"Section 4. 핵심가치 평가",nav:"핵심가치",sub:"GNA의 3대 핵심가치 실천 정도를 평가해 주세요.",tp:"cv",mode:"leader"},
+  {id:"s5",t:"Section 5. 종합 평가",nav:"종합 평가",tp:"final",f:[{k:"s5q1",l:"선택한 등급의 근거와 함께, 앞으로 이 구성원이 더 강화하거나 변화해야 할 역량을 적어주세요.",tp:"ta"}]},
 ];
 
 // ═══ State ═══
-let D={},step=0,mode=null,authEmail='',submitted=false,saving=false;
+let D={},mode=null,authEmail='',submitted=false,saving=false,activeNav=0;
 function secs(){return mode==='self'?selfS:leaderS}
-function c(){return secs()[step]}
 function draftKey(){return 'gna_draft_'+mode+'_'+authEmail}
 
-// ═══ Draft (임시저장) ═══
+// ═══ Draft ═══
 function saveDraft(){
   if(!mode||!authEmail)return;
-  try{localStorage.setItem(draftKey(),JSON.stringify({data:D,step:step,grade:D.grade,ts:Date.now()}))}catch(e){}
+  try{localStorage.setItem(draftKey(),JSON.stringify({data:D,ts:Date.now()}))}catch(e){}
 }
-function loadDraft(){
-  try{const raw=localStorage.getItem(draftKey());if(!raw)return null;return JSON.parse(raw)}catch(e){return null}
-}
+function loadDraft(){try{const raw=localStorage.getItem(draftKey());if(!raw)return null;return JSON.parse(raw)}catch(e){return null}}
 function clearDraft(){try{localStorage.removeItem(draftKey())}catch(e){}}
 function hasDraft(m){try{return!!localStorage.getItem('gna_draft_'+m+'_'+authEmail)}catch(e){return false}}
-function showToast(msg){
-  const t=document.createElement('div');t.className='saved-toast';t.textContent=msg;
-  document.body.appendChild(t);setTimeout(()=>t.remove(),2200);
-}
-// Auto-save every 30s
+function showToast(msg){const t=document.createElement('div');t.className='saved-toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2200)}
 setInterval(()=>{if(mode&&authEmail&&!submitted){saveDraft()}},30000);
+
+// ═══ Section completion check ═══
+function isSectionFilled(sec){
+  if(sec.tp==='cv') return CV.every(v=>D[v.en+'_score']&&(D[v.en+'_text']||'').trim());
+  if(sec.tp==='final') return D.grade&&sec.f&&sec.f.every(f=>(D[f.k]||'').trim());
+  if(sec.f) return sec.f.filter(f=>!f.opt).every(f=>(D[f.k]||'').trim());
+  return false;
+}
+function allFilled(){return secs().every(s=>isSectionFilled(s))}
+function filledCount(){return secs().filter(s=>isSectionFilled(s)).length}
 
 // ═══ Helpers ═══
 function h(t,a,...ch){const e=document.createElement(t);if(a)Object.entries(a).forEach(([k,v])=>{if(k==='style'&&typeof v==='object')Object.assign(e.style,v);else if(k.startsWith('on'))e.addEventListener(k.slice(2).toLowerCase(),v);else if(k==='className')e.className=v;else e.setAttribute(k,v)});ch.flat(Infinity).forEach(x=>{if(x!=null)e.appendChild(typeof x==='string'?document.createTextNode(x):x)});return e}
-function ok(){const s=c();if(!s)return false;if(s.tp==='review')return true;if(s.tp==='cv')return CV.every(v=>D[v.en+'_score']&&(D[v.en+'_text']||'').trim());if(s.tp==='final')return D.grade&&s.f.every(f=>(D[f.k]||'').trim());if(s.f)return s.f.filter(f=>!f.opt).every(f=>(D[f.k]||'').trim());return true}
-function updNav(){const b=document.querySelector('.btn-next');if(b)b.disabled=!ok()}
+
+// ═══ Submit ═══
 async function submit(){
-  saving=true;R();
+  if(!allFilled()){showToast('⚠️ 미작성 항목이 있습니다');return}
+  if(!confirm('제출하시겠습니까? 제출 후에는 수정할 수 없습니다.'))return;
+  saving=true;updateSubmitBar();
   const ts=new Date().toISOString(),p={...D,_type:mode,_email:authEmail,_timestamp:ts};
   try{localStorage.setItem('gna_'+mode+'_'+ts,JSON.stringify(p))}catch(e){}
   if(SHEET_WEBHOOK_URL)try{await fetch(SHEET_WEBHOOK_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})}catch(e){}
   clearDraft();saving=false;submitted=true;R();
 }
-function go(n){step=n;window.scrollTo(0,0);R()}
 
 // ═══ Renderers ═══
-function rScaleGuide(){const b=h('div',{className:'guide-box'});b.appendChild(h('div',{className:'title'},'평가 단계 기준'));SI.forEach(s=>{const r=h('div',{className:'guide-row'});r.appendChild(h('div',{className:'guide-num'},String(s.n)));const t=h('div',{className:'guide-text'});t.appendChild(h('strong',null,s.l));t.appendChild(h('span',null,' — '+s.d));r.appendChild(t);b.appendChild(r)});return b}
-function rGrade(){const w=h('div',null),b=h('div',{className:'guide-box'});b.appendChild(h('div',{className:'title'},'종합 등급 선택 *'));const g=h('div',{className:'grade-grid'});GG.forEach(x=>{const a=D.grade===x.g,i=h('div',{className:'grade-item'+(a?' active':''),onClick:()=>{D.grade=x.g;R()}});i.appendChild(h('span',{className:'g'},x.g+'.'));i.appendChild(h('span',{className:'gl'},x.l));i.appendChild(h('div',{className:'gd'},x.d));g.appendChild(i)});b.appendChild(g);w.appendChild(b);return w}
-function rField(f){const d=h('div',{className:'field'}),l=h('label',null,f.l);if(!f.opt)l.appendChild(h('span',{className:'req'},' *'));d.appendChild(l);if(f.tp==='ta'){const t=h('textarea',{rows:'5'});t.value=D[f.k]||'';t.addEventListener('input',e=>{D[f.k]=e.target.value;updNav()});d.appendChild(t)}else{const i=h('input',{type:f.tp});i.value=D[f.k]||'';i.addEventListener('input',e=>{D[f.k]=e.target.value;updNav()});d.appendChild(i);if(f.hint)d.appendChild(h('p',{style:{fontSize:'12px',color:'#94a3b8',marginTop:'5px'}},f.hint))}return d}
-function rCV(cv,m){
-  const card=h('div',{className:'cv-card',style:{background:cv.bg,border:'1.5px solid '+cv.border}});const ti=h('div',{className:'cv-title'});ti.appendChild(h('span',{className:'kr',style:{color:cv.color}},cv.kr));ti.appendChild(h('span',{className:'en',style:{color:cv.color}},cv.en));card.appendChild(ti);const be=h('div',{className:'cv-behaviors'});cv.beh.forEach(b=>be.appendChild(h('span',null,b)));card.appendChild(be);
-  const sk=cv.en+'_score',tk=cv.en+'_text';const ql=m==='self'?`"${cv.kr}" 가치를 얼마나 잘 실천했나요?`:`이 구성원은 "${cv.kr}" 가치를 얼마나 잘 실천했나요?`;const q1=h('div',{className:'cv-q'},ql);q1.appendChild(h('span',{className:'req'},' *'));card.appendChild(q1);
-  const sr=h('div',{className:'scale-row'});SI.forEach(s=>{const a=D[sk]===s.n,b=h('button',{className:'scale-btn'+(a?' active':''),style:a?{background:cv.color,borderColor:cv.color,color:'#fff'}:{},onClick:()=>{D[sk]=s.n;R()}});b.appendChild(h('span',null,String(s.n)));b.appendChild(h('span',{className:'sl'},s.l));sr.appendChild(b)});card.appendChild(sr);
-  const el=m==='self'?'위 점수의 근거가 되는 사례와, 앞으로 더 발전시키고 싶은 부분을 함께 적어주세요.':'위 점수의 근거가 되는 구체적 사례를 적어주세요.';const q2=h('div',{className:'cv-q'},el);q2.appendChild(h('span',{className:'req'},' *'));card.appendChild(q2);
-  const ta=h('textarea',{rows:'3',style:{border:'1.5px solid #e2e8f0',borderRadius:'10px',fontSize:'13px',lineHeight:'1.6',fontFamily:'inherit',background:'#fff',padding:'10px 14px',width:'100%',outline:'none',boxSizing:'border-box',resize:'vertical'}});ta.value=D[tk]||'';ta.addEventListener('input',e=>{D[tk]=e.target.value;updNav()});ta.addEventListener('focus',()=>ta.style.borderColor=cv.color);ta.addEventListener('blur',()=>ta.style.borderColor='#e2e8f0');card.appendChild(ta);return card;
+function rScaleGuide(){
+  const b=h('div',{className:'guide-box'});
+  b.appendChild(h('div',{className:'title'},'평가 단계 기준'));
+  SI.forEach(s=>{const r=h('div',{className:'guide-row'});r.appendChild(h('div',{className:'guide-num'},String(s.n)));const t=h('div',{className:'guide-text'});t.appendChild(h('strong',null,s.l));t.appendChild(h('span',null,' — '+s.d));r.appendChild(t);b.appendChild(r)});
+  return b;
 }
-function rReview(){const w=h('div',null);secs().filter(s=>s.tp!=='review').forEach((sec,si)=>{const bl=h('div',{className:'review-section'});const hd=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'12px'}});hd.appendChild(h('h4',null,sec.t));hd.appendChild(h('button',{className:'review-edit',onClick:()=>go(si)},'수정하기'));bl.appendChild(hd);if(sec.f){sec.f.forEach(f=>{const it=h('div',{className:'review-item'});const lb=f.l.length>50?f.l.substring(0,50)+'...':f.l;it.appendChild(h('div',{className:'review-label'},lb));const v=D[f.k];it.appendChild(h('div',{className:v?'review-value':'review-empty'},v||'(미작성)'));bl.appendChild(it)})}if(sec.tp==='cv'){CV.forEach(cv=>{const it=h('div',{className:'review-item'});const sc=D[cv.en+'_score'],tx=D[cv.en+'_text'];const sl=sc?SI.find(s=>s.n===sc).l:'';it.appendChild(h('div',{className:'review-label'},cv.kr+' ('+cv.en+')'));it.appendChild(h('div',{className:sc?'review-value':'review-empty'},sc?sc+'점 — '+sl:'(미선택)'));if(tx)it.appendChild(h('div',{style:{fontSize:'12px',color:'#64748b',marginTop:'4px',lineHeight:'1.5',whiteSpace:'pre-line'}},tx));bl.appendChild(it)})}if(sec.tp==='final'){const gi=h('div',{className:'review-item'});gi.appendChild(h('div',{className:'review-label'},'종합 등급'));const gv=D.grade,gf=gv?GG.find(x=>x.g===gv):null;gi.appendChild(h('div',{className:gv?'review-value':'review-empty'},gf?gv+' — '+gf.l:'(미선택)'));bl.appendChild(gi);sec.f.forEach(f=>{const it=h('div',{className:'review-item'});it.appendChild(h('div',{className:'review-label'},'종합 의견'));const v=D[f.k];it.appendChild(h('div',{className:v?'review-value':'review-empty'},v||'(미작성)'));bl.appendChild(it)})}w.appendChild(bl)});return w}
 
-// ═══ Main ═══
+function rGrade(){
+  const w=h('div',null),b=h('div',{className:'guide-box'});
+  b.appendChild(h('div',{className:'title'},'종합 등급 선택 *'));
+  const g=h('div',{className:'grade-grid'});
+  GG.forEach(x=>{
+    const a=D.grade===x.g;
+    const i=h('div',{className:'grade-item'+(a?' active':''),onClick:()=>{D.grade=x.g;reRenderSection('s5');updateNav();updateSubmitBar()}});
+    i.appendChild(h('span',{className:'g'},x.g+'.'));
+    i.appendChild(h('span',{className:'gl'},x.l));
+    i.appendChild(h('div',{className:'gd'},x.d));
+    g.appendChild(i);
+  });
+  b.appendChild(g);w.appendChild(b);return w;
+}
+
+function rField(f,secId){
+  const d=h('div',{className:'field'}),l=h('label',null,f.l);
+  if(!f.opt)l.appendChild(h('span',{className:'req'},' *'));
+  d.appendChild(l);
+  if(f.tp==='ta'){
+    const t=h('textarea',{rows:'5'});t.value=D[f.k]||'';
+    t.addEventListener('input',e=>{D[f.k]=e.target.value;updateNav();updateSubmitBar()});
+    d.appendChild(t);
+  }else{
+    const i=h('input',{type:f.tp});i.value=D[f.k]||'';
+    i.addEventListener('input',e=>{D[f.k]=e.target.value;updateNav();updateSubmitBar()});
+    d.appendChild(i);
+    if(f.hint)d.appendChild(h('p',{style:{fontSize:'12px',color:'#94a3b8',marginTop:'5px'}},f.hint));
+  }
+  return d;
+}
+
+function rCV(cv,m,secId){
+  const card=h('div',{className:'cv-card',style:{background:cv.bg,border:'1.5px solid '+cv.border}});
+  const ti=h('div',{className:'cv-title'});
+  ti.appendChild(h('span',{className:'kr',style:{color:cv.color}},cv.kr));
+  ti.appendChild(h('span',{className:'en',style:{color:cv.color}},cv.en));
+  card.appendChild(ti);
+  const be=h('div',{className:'cv-behaviors'});cv.beh.forEach(b=>be.appendChild(h('span',null,b)));card.appendChild(be);
+
+  const sk=cv.en+'_score',tk=cv.en+'_text';
+  const ql=m==='self'?`"${cv.kr}" 가치를 얼마나 잘 실천했나요?`:`이 구성원은 "${cv.kr}" 가치를 얼마나 잘 실천했나요?`;
+  const q1=h('div',{className:'cv-q'},ql);q1.appendChild(h('span',{className:'req'},' *'));card.appendChild(q1);
+
+  const sr=h('div',{className:'scale-row'});
+  SI.forEach(s=>{
+    const a=D[sk]===s.n;
+    const b=h('button',{className:'scale-btn'+(a?' active':''),style:a?{background:cv.color,borderColor:cv.color,color:'#fff'}:{},
+      onClick:()=>{D[sk]=s.n;reRenderSection(secId);updateNav();updateSubmitBar()}});
+    b.appendChild(h('span',null,String(s.n)));
+    b.appendChild(h('span',{className:'sl'},s.l));
+    sr.appendChild(b);
+  });
+  card.appendChild(sr);
+
+  const el=m==='self'?'위 점수의 근거가 되는 사례와, 앞으로 더 발전시키고 싶은 부분을 함께 적어주세요.':'위 점수의 근거가 되는 구체적 사례를 적어주세요.';
+  const q2=h('div',{className:'cv-q'},el);q2.appendChild(h('span',{className:'req'},' *'));card.appendChild(q2);
+
+  const ta=h('textarea',{rows:'3',style:{border:'1.5px solid #e2e8f0',borderRadius:'10px',fontSize:'13px',lineHeight:'1.6',fontFamily:'inherit',background:'#fff',padding:'10px 14px',width:'100%',outline:'none',boxSizing:'border-box',resize:'vertical'}});
+  ta.value=D[tk]||'';
+  ta.addEventListener('input',e=>{D[tk]=e.target.value;updateNav();updateSubmitBar()});
+  ta.addEventListener('focus',()=>ta.style.borderColor=cv.color);
+  ta.addEventListener('blur',()=>ta.style.borderColor='#e2e8f0');
+  card.appendChild(ta);
+  return card;
+}
+
+function renderSectionCard(sec,idx){
+  const card=h('div',{className:'card',id:'sec-'+sec.id});
+  const ch2=h('div',{className:'card-header'}),td=h('div');
+  td.appendChild(h('h3',null,sec.t));
+  if(sec.sub)td.appendChild(h('div',{className:'card-sub'},sec.sub));
+  ch2.appendChild(td);
+  const stepLabel=h('span',{className:'step'},(idx+1)+' / '+secs().length);
+  ch2.appendChild(stepLabel);
+  card.appendChild(ch2);
+
+  const bd=h('div',{className:'card-body'});
+  if(sec.tp==='cv'){
+    bd.appendChild(rScaleGuide());
+    CV.forEach(v=>bd.appendChild(rCV(v,sec.mode,sec.id)));
+  } else if(sec.tp==='final'){
+    bd.appendChild(rGrade());
+    sec.f.forEach(f=>bd.appendChild(rField(f,sec.id)));
+  } else if(sec.f){
+    sec.f.forEach(f=>bd.appendChild(rField(f,sec.id)));
+  }
+  card.appendChild(bd);
+  return card;
+}
+
+function reRenderSection(secId){
+  const ss=secs();
+  const idx=ss.findIndex(s=>s.id===secId);
+  if(idx<0)return;
+  const old=document.getElementById('sec-'+secId);
+  if(!old)return;
+  const newCard=renderSectionCard(ss[idx],idx);
+  old.replaceWith(newCard);
+}
+
+// ═══ Nav update (without full re-render) ═══
+function updateNav(){
+  const pills=document.querySelectorAll('.nav-pill');
+  const ss=secs();
+  pills.forEach((pill,i)=>{
+    const filled=isSectionFilled(ss[i]);
+    pill.className='nav-pill'+(i===activeNav?' active':'')+(filled&&i!==activeNav?' filled':'');
+  });
+  updateProgress();
+}
+
+function updateSubmitBar(){
+  const btn=document.getElementById('submitBtn');
+  const info=document.getElementById('submitInfo');
+  if(!btn||!info)return;
+  const fc=filledCount(),total=secs().length;
+  btn.disabled=!allFilled()||saving;
+  btn.textContent=saving?'저장 중...':'제출하기 ✓';
+  info.innerHTML=fc===total
+    ?'<span class="done-count">✓ 모든 섹션 작성 완료</span>'
+    :'작성 완료 <span class="count">'+fc+' / '+total+'</span> 섹션';
+}
+
+function updateProgress(){
+  const bar=document.getElementById('progressFill');
+  if(!bar)return;
+  const fc=filledCount(),total=secs().length;
+  bar.style.width=(fc/total*100)+'%';
+}
+
+// ═══ Scroll spy ═══
+function setupScrollSpy(){
+  const ss=secs();
+  const observer=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const id=entry.target.id.replace('sec-','');
+        const idx=ss.findIndex(s=>s.id===id);
+        if(idx>=0&&idx!==activeNav){
+          activeNav=idx;
+          updateNav();
+          // scroll nav pill into view
+          const pill=document.querySelectorAll('.nav-pill')[idx];
+          if(pill)pill.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+        }
+      }
+    });
+  },{rootMargin:'-120px 0px -60% 0px',threshold:0.1});
+
+  ss.forEach(s=>{
+    const el=document.getElementById('sec-'+s.id);
+    if(el)observer.observe(el);
+  });
+}
+
+// ═══ Scroll-to-top button ═══
+window.addEventListener('scroll',()=>{
+  const btn=document.getElementById('scrollTopBtn');
+  if(btn)btn.className='scroll-top'+(window.scrollY>400?' show':'');
+});
+
+// ═══ Main Render ═══
 function R(){
   const app=document.getElementById('app');app.innerHTML='';
 
-  // Gate - Email + Code
+  // Gate
   if(!authEmail){
     const g=h('div',{className:'gate'}),inner=h('div',{style:{maxWidth:'420px',width:'100%'}});
-    inner.appendChild(h('div',{className:'tag'},'GNA COMPANY'));inner.appendChild(h('h1',null,'연봉 재계약 리뷰'));
+    inner.appendChild(h('div',{className:'tag'},'GNA COMPANY'));
+    inner.appendChild(h('h1',null,'연봉 재계약 리뷰'));
     inner.appendChild(h('p',{className:'sub'},'한 해를 돌아보며, 서로의 성장을 확인하는 시간입니다'));
     const f1=h('div',{className:'gate-field'});f1.appendChild(h('div',{className:'gate-label'},'사내 이메일'));
     const inp1=h('input',{className:'gate-input',type:'email',placeholder:'name@gna.company'});f1.appendChild(inp1);inner.appendChild(f1);
@@ -232,7 +439,6 @@ function R(){
       const email=inp1.value.trim().toLowerCase(),code=inp2.value.trim().toUpperCase();
       if(!email){err.textContent='이메일을 입력해주세요';return}
       if(!code){err.textContent='인증 코드를 입력해주세요';return}
-      // 만료일 체크
       const now=new Date(),expiry=new Date(CODE_EXPIRY_DATE+'T23:59:59');
       if(now>expiry){err.textContent='리뷰 작성 기간이 종료되었습니다. People팀에 문의해주세요.';return}
       if(!AUTH[email]){err.textContent='등록되지 않은 이메일입니다';return}
@@ -245,16 +451,17 @@ function R(){
   // Landing
   if(!mode){
     const ld=h('div',{className:'landing'}),inner=h('div',{style:{maxWidth:'480px',width:'100%'}});
-    inner.appendChild(h('div',{className:'tag'},'GNA COMPANY'));inner.appendChild(h('h1',null,'연봉 재계약 리뷰'));
+    inner.appendChild(h('div',{className:'tag'},'GNA COMPANY'));
+    inner.appendChild(h('h1',null,'연봉 재계약 리뷰'));
     inner.appendChild(h('p',{className:'sub'},'한 해를 돌아보며, 서로의 성장을 확인하는 시간입니다'));
     inner.appendChild(h('div',{className:'welcome'},'👋 '+authEmail));
 
-    const b1=h('button',{className:'mode-btn',onClick:()=>{mode='self';step=0;D={};submitted=false;const dr=loadDraft();if(dr){if(confirm('이전에 임시저장된 내용이 있습니다. 이어서 작성하시겠습니까?')){D=dr.data||{};step=dr.step||0;if(dr.grade)D.grade=dr.grade}else{clearDraft()}}R()}}),i1=h('div');
+    const b1=h('button',{className:'mode-btn',onClick:()=>{mode='self';D={};submitted=false;const dr=loadDraft();if(dr){if(confirm('이전에 임시저장된 내용이 있습니다. 이어서 작성하시겠습니까?')){D=dr.data||{}}else{clearDraft()}}R()}}),i1=h('div');
     const selfLabel=h('span',null,'셀프리뷰 작성');
     if(hasDraft('self'))selfLabel.appendChild(h('span',{className:'draft-badge'},'임시저장 있음'));
     i1.appendChild(selfLabel);i1.appendChild(h('div',{className:'desc'},'대상자 본인이 직접 작성합니다'));b1.appendChild(i1);b1.appendChild(h('span',{className:'arrow'},'→'));inner.appendChild(b1);
 
-    const b2=h('button',{className:'mode-btn',onClick:()=>{mode='leader';step=0;D={};submitted=false;const dr=loadDraft();if(dr){if(confirm('이전에 임시저장된 내용이 있습니다. 이어서 작성하시겠습니까?')){D=dr.data||{};step=dr.step||0;if(dr.grade)D.grade=dr.grade}else{clearDraft()}}R()}}),i2=h('div');
+    const b2=h('button',{className:'mode-btn',onClick:()=>{mode='leader';D={};submitted=false;const dr=loadDraft();if(dr){if(confirm('이전에 임시저장된 내용이 있습니다. 이어서 작성하시겠습니까?')){D=dr.data||{}}else{clearDraft()}}R()}}),i2=h('div');
     const leaderLabel=h('span',null,'리드/동료 평가 작성');
     if(hasDraft('leader'))leaderLabel.appendChild(h('span',{className:'draft-badge'},'임시저장 있음'));
     i2.appendChild(leaderLabel);i2.appendChild(h('div',{className:'desc'},'리드 또는 동료가 대상자를 평가합니다'));b2.appendChild(i2);b2.appendChild(h('span',{className:'arrow'},'→'));inner.appendChild(b2);
@@ -262,33 +469,71 @@ function R(){
   }
 
   // Submitted
-  if(submitted){const dn=h('div',{className:'done'}),inner=h('div',{style:{maxWidth:'420px'}});inner.appendChild(h('div',{className:'icon'},'✅'));inner.appendChild(h('h2',null,'제출 완료'));inner.appendChild(h('p',null,(mode==='self'?'셀프리뷰가':'리드/동료 평가가')+' 성공적으로 제출되었습니다.'));inner.appendChild(h('button',{onClick:()=>{mode=null;step=0;D={};submitted=false;R()}},'처음으로 돌아가기'));dn.appendChild(inner);app.appendChild(dn);return}
+  if(submitted){
+    const dn=h('div',{className:'done'}),inner=h('div',{style:{maxWidth:'420px'}});
+    inner.appendChild(h('div',{className:'icon'},'✅'));
+    inner.appendChild(h('h2',null,'제출 완료'));
+    inner.appendChild(h('p',null,(mode==='self'?'셀프리뷰가':'리드/동료 평가가')+' 성공적으로 제출되었습니다.'));
+    inner.appendChild(h('button',{onClick:()=>{mode=null;D={};submitted=false;activeNav=0;R()}},'처음으로 돌아가기'));
+    dn.appendChild(inner);app.appendChild(dn);return;
+  }
 
-  // Form
-  const ss=secs(),cu=c(),isLast=step===ss.length-1,prog=((step+1)/ss.length)*100;
-  const hdr=h('div',{className:'header'}),hi=h('div',{className:'header-inner'}),tp=h('div',{className:'top'}),ld=h('div');
-  ld.appendChild(h('div',{className:'brand'},'GNA COMPANY'));ld.appendChild(h('h2',null,mode==='self'?'셀프리뷰':'리드/동료 평가'));tp.appendChild(ld);
+  // ═══ FORM: All sections on one page ═══
+  const ss=secs();
+
+  // Header
+  const hdr=h('div',{className:'header'}),hi=h('div',{className:'header-inner'}),tp=h('div',{className:'top'}),ld2=h('div');
+  ld2.appendChild(h('div',{className:'brand'},'GNA COMPANY'));
+  ld2.appendChild(h('h2',null,mode==='self'?'셀프리뷰':'리드/동료 평가'));
+  tp.appendChild(ld2);
   const btns=h('div',{className:'header-btns'});
   btns.appendChild(h('button',{className:'save-btn',onClick:()=>{saveDraft();showToast('💾 임시저장 완료')}},'임시저장'));
-  btns.appendChild(h('button',{className:'exit-btn',onClick:()=>{saveDraft();if(confirm('임시저장 후 나가시겠습니까?')){mode=null;R()}}},'나가기'));
-  tp.appendChild(btns);hi.appendChild(tp);const pb=h('div',{className:'progress-bar'});pb.appendChild(h('div',{className:'progress-fill',style:{width:prog+'%'}}));hi.appendChild(pb);hdr.appendChild(hi);app.appendChild(hdr);
+  btns.appendChild(h('button',{className:'exit-btn',onClick:()=>{saveDraft();if(confirm('임시저장 후 나가시겠습니까?')){mode=null;activeNav=0;R()}}},'나가기'));
+  tp.appendChild(btns);hi.appendChild(tp);
+  const pb=h('div',{className:'progress-bar'});pb.appendChild(h('div',{className:'progress-fill',id:'progressFill',style:{width:(filledCount()/ss.length*100)+'%'}}));
+  hi.appendChild(pb);hdr.appendChild(hi);app.appendChild(hdr);
 
-  const ct=h('div',{className:'content'}),cd=h('div',{className:'card'}),ch2=h('div',{className:'card-header'}),td=h('div');
-  td.appendChild(h('h3',null,cu.t));if(cu.sub)td.appendChild(h('div',{className:'card-sub'},cu.sub));ch2.appendChild(td);ch2.appendChild(h('span',{className:'step'},(step+1)+' / '+ss.length));cd.appendChild(ch2);
-  const bd=h('div',{className:'card-body'});
-  if(cu.tp==='cv'){bd.appendChild(rScaleGuide());CV.forEach(v=>bd.appendChild(rCV(v,cu.mode)))}
-  else if(cu.tp==='final'){bd.appendChild(rGrade());cu.f.forEach(f=>bd.appendChild(rField(f)))}
-  else if(cu.tp==='review'){bd.appendChild(h('p',{style:{fontSize:'14px',color:'#64748b',marginBottom:'16px',lineHeight:'1.6'}},'제출 전에 작성 내용을 확인해주세요. 수정이 필요하면 각 섹션의 "수정하기"를 클릭하세요.'));bd.appendChild(rReview())}
-  else if(cu.f){cu.f.forEach(f=>bd.appendChild(rField(f)))}
-  cd.appendChild(bd);ct.appendChild(cd);app.appendChild(ct);
+  // Section Nav pills
+  const nav=h('div',{className:'section-nav'}),navIn=h('div',{className:'nav-inner'});
+  ss.forEach((sec,i)=>{
+    const filled=isSectionFilled(sec);
+    const pill=h('button',{className:'nav-pill'+(i===0?' active':'')+(filled?' filled':''),
+      onClick:()=>{
+        activeNav=i;
+        const target=document.getElementById('sec-'+sec.id);
+        if(target)target.scrollIntoView({behavior:'smooth',block:'start'});
+        updateNav();
+      }
+    },sec.nav||sec.t);
+    navIn.appendChild(pill);
+  });
+  nav.appendChild(navIn);app.appendChild(nav);
 
-  const nv=h('div',{className:'bottom-nav'}),ni=h('div',{className:'bottom-inner'});
-  const pv=h('button',{className:'btn-prev',onClick:()=>go(Math.max(0,step-1))},'← 이전');if(step===0)pv.disabled=true;ni.appendChild(pv);
-  ni.appendChild(h('span',{className:'step-indicator'},(step+1)+' / '+ss.length));
-  if(isLast){const sb=h('button',{className:'btn-next',onClick:submit},saving?'저장 중...':'제출하기 ✓');if(saving)sb.disabled=true;ni.appendChild(sb)}
-  else{const nx=h('button',{className:'btn-next',onClick:()=>go(step+1)},'다음 →');if(!ok())nx.disabled=true;ni.appendChild(nx)}
-  nv.appendChild(ni);app.appendChild(nv);
+  // Content: ALL sections rendered at once
+  const ct=h('div',{className:'content'});
+  ss.forEach((sec,idx)=>{
+    ct.appendChild(renderSectionCard(sec,idx));
+    if(idx<ss.length-1)ct.appendChild(h('div',{className:'section-divider'}));
+  });
+  app.appendChild(ct);
+
+  // Submit bar (fixed bottom)
+  const sb=h('div',{className:'submit-bar'}),si=h('div',{className:'submit-inner'});
+  const fc=filledCount();
+  const infoEl=h('div',{className:'submit-info',id:'submitInfo'});
+  infoEl.innerHTML=fc===ss.length
+    ?'<span class="done-count">✓ 모든 섹션 작성 완료</span>'
+    :'작성 완료 <span class="count">'+fc+' / '+ss.length+'</span> 섹션';
+  si.appendChild(infoEl);
+  const submitBtn=h('button',{className:'btn-submit',id:'submitBtn',onClick:submit},'제출하기 ✓');
+  if(!allFilled())submitBtn.disabled=true;
+  si.appendChild(submitBtn);
+  sb.appendChild(si);app.appendChild(sb);
+
+  // Setup scroll spy after DOM render
+  requestAnimationFrame(()=>setupScrollSpy());
 }
+
 R();
 </script>
 </body>

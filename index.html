@@ -23,6 +23,7 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;backgr
 .gate-error{color:#ef4444;font-size:13px;margin-top:8px;min-height:20px;text-align:center}
 .gate-btn{padding:12px 32px;border-radius:12px;background:#2563eb;color:#fff;font-size:14px;font-weight:600;border:none;cursor:pointer;font-family:inherit;margin-top:8px;transition:background .2s;width:100%;max-width:320px}
 .gate-btn:hover{background:#1d4ed8}
+.gate-btn:disabled{background:#475569;cursor:default}
 
 /* ── Landing ── */
 .landing{min-height:100vh;background:linear-gradient(160deg,#0f172a 0%,#1e293b 50%,#0f172a 100%);display:flex;align-items:center;justify-content:center;text-align:center;padding:24px}
@@ -152,33 +153,21 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;backgr
 
 <script>
 // ═══ 설정 ═══
-const SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzL0S2Rjc2Ic9hFI0Hjm4y8Ui_ETC1fCct4hwOJjmrHAinCi2YhrSw1McgxkYYi2BVcvA/exec";
+const SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbztJcE-ohFrXA7GESVtgBPl5cNq4Exr96_gSYH8sYnpvjk75xUVRT5NnyYScFqYpTdaSQ/exec";
 const CODE_EXPIRY_DATE = "2026-03-23";
 
-const AUTH = {
-"wb@gna.company":"BP7IQS","kai.kim@gna.company":"5TS5PI","jay.heo@gna.company":"RYW7EW",
-"eddakim@gna.company":"L2MLVR","lina.diaz@gna.company":"71ROWE","min@gna.company":"58UDDF",
-"lou@gna.company":"6CFKQ3","julie@gna.company":"CME6HT","eve@gna.company":"OQO8SJ",
-"chloe@gna.company":"EKY4J8","kane@gna.company":"9MJ58X","tommy.kim@gna.company":"U6ZO6O",
-"ellie@gna.company":"6YNDUD","ina@gna.company":"UK8H12","veronica.park@gna.company":"WS5MI9",
-"jimmy@gna.company":"DNSOOC","eddie.kim@gna.company":"D66N7K","senna.jeong@gna.company":"99QGUY",
-"hyman.park@gna.company":"C3EZJA","yosef@gna.company":"W59JYS","angie.han@gna.company":"0UCUWG",
-"flicia@gna.company":"XMME70","selene.park@gna.company":"UNIOOM","mary.choi@gna.company":"3T6ZHH",
-"seny@gna.company":"ZV74WU","angelique.li@gna.company":"ZM0OCC","kesper.ng@gna.company":"K0TO0A",
-"sonya.hong@gna.company":"AOZC9L","liang.wang@gna.company":"151VW7","mac.han@gna.company":"I36DBB",
-"ted.yang@gna.company":"P6PPCW","hailey.jeong@gna.company":"8YSSAS","randi.ko@gna.company":"IAWO7D",
-"becky.bae@gna.company":"HP1XF1","luka.kim@gna.company":"SYTL8G","rocket.oh@gna.company":"FPT74O",
-"ruqe.seo@gna.company":"HXV892","erica.kim@gna.company":"6MY825","liora@gna.company":"JOQ59Q",
-"luvon.lee@gna.company":"D3NXIS","victor.kim@gna.company":"MTL20U","eren.jang@gna.company":"5QSO6A",
-"josh.sho@gna.company":"0V9V6D","marisol.kim@gna.company":"YUF3DU","simon.lee@gna.company":"4Q73MS",
-"boyle.seo@gna.company":"B8G6KX","hayden@gna.company":"24EJT0","joy@gna.company":"0SYB9L",
-"may@gna.company":"ILORL8","sophia@gna.company":"6K700M","nate.yoo@gna.company":"19QDXP",
-"moon@gna.company":"EDGGRE","teo.park@gna.company":"C9B55I","noah.lee@gna.company":"98CPZM",
-"yuna.pan@gna.company":"T1M6HJ","lexi.sa@gna.company":"2B3GYD","vana.i@gna.company":"WN1HYA",
-"rosea.li@gna.company":"0V14FZ","rhea.syn@gna.company":"6RE5J4","faye.kang@gna.company":"X1738Z",
-"mima.kang@gna.company":"PU4B3O","lucy.kim@gna.company":"J9P0A4","claire.tran@gna.company":"7T8W6Q",
-"maverick.seo@gna.company":"YMZ7K5","lumi.ko@gna.company":"QE03AZ","sammy.lee@gna.company":"R29W8G"
-};
+// ═══ 인증: 서버사이드 검증 (클라이언트에 코드 노출 없음) ═══
+async function verifyAuth(email, code) {
+  const url = SHEET_WEBHOOK_URL + "?action=auth&email=" + encodeURIComponent(email) + "&code=" + encodeURIComponent(code);
+  try {
+    const res = await fetch(url);
+    const json = await res.json();
+    return json.success === true;
+  } catch (e) {
+    console.error("Auth verification failed:", e);
+    return false;
+  }
+}
 
 // ═══ Data ═══
 const CV=[
@@ -397,7 +386,6 @@ function setupScrollSpy(){
         if(idx>=0&&idx!==activeNav){
           activeNav=idx;
           updateNav();
-          // scroll nav pill into view
           const pill=document.querySelectorAll('.nav-pill')[idx];
           if(pill)pill.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
         }
@@ -432,18 +420,30 @@ function R(){
     const f2=h('div',{className:'gate-field'});f2.appendChild(h('div',{className:'gate-label'},'개인 인증 코드'));
     const inp2=h('input',{className:'gate-input gate-code',type:'text',placeholder:'코드 6자리',maxlength:'6'});f2.appendChild(inp2);inner.appendChild(f2);
     const err=h('div',{className:'gate-error'});inner.appendChild(err);
+    const gateBtn=h('button',{className:'gate-btn',onClick:tryAuth},'입장하기');
     inp2.addEventListener('keydown',e=>{if(e.key==='Enter')tryAuth()});
-    inner.appendChild(h('button',{className:'gate-btn',onClick:tryAuth},'입장하기'));
+    inner.appendChild(gateBtn);
     g.appendChild(inner);app.appendChild(g);setTimeout(()=>inp1.focus(),100);
-    function tryAuth(){
+
+    async function tryAuth(){
       const email=inp1.value.trim().toLowerCase(),code=inp2.value.trim().toUpperCase();
       if(!email){err.textContent='이메일을 입력해주세요';return}
       if(!code){err.textContent='인증 코드를 입력해주세요';return}
       const now=new Date(),expiry=new Date(CODE_EXPIRY_DATE+'T23:59:59');
       if(now>expiry){err.textContent='리뷰 작성 기간이 종료되었습니다. People팀에 문의해주세요.';return}
-      if(!AUTH[email]){err.textContent='등록되지 않은 이메일입니다';return}
-      if(AUTH[email]!==code){err.textContent='인증 코드가 올바르지 않습니다';return}
-      authEmail=email;R();
+
+      // 서버사이드 인증
+      err.textContent='';
+      gateBtn.disabled=true;
+      gateBtn.textContent='인증 중...';
+      const ok=await verifyAuth(email,code);
+      if(ok){
+        authEmail=email;R();
+      }else{
+        err.textContent='이메일 또는 인증 코드가 올바르지 않습니다';
+        gateBtn.disabled=false;
+        gateBtn.textContent='입장하기';
+      }
     }
     return;
   }
@@ -530,7 +530,6 @@ function R(){
   si.appendChild(submitBtn);
   sb.appendChild(si);app.appendChild(sb);
 
-  // Setup scroll spy after DOM render
   requestAnimationFrame(()=>setupScrollSpy());
 }
 
